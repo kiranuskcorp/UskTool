@@ -5,7 +5,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link href="./css/bootstrap.min.css" rel="stylesheet">
-
+<link href="./css/index.css" rel="stylesheet" type="text/css" />
 <link href="./css/asterisk.css" rel="stylesheet" type="text/css" />
 <link href="./css/fa/css/font-awesome.min.css" rel="stylesheet"
 	type="text/css" />
@@ -13,6 +13,41 @@
 	type="text/css" />
 <link href="./css/foot/footable.sortable-0.1.css" rel="stylesheet"
 	type="text/css" />
+	<style type="text/css">
+	
+	<style type="text/css">
+    #navRes{
+        padding: 0;
+        list-style: none;
+    }
+    #navRes li{
+        width: 100px;
+        display: inline-block;
+        position: relative;
+        text-align: center;
+        line-height: 21px;
+    }
+    #navRes li a{
+        display: block;
+        padding: 5px 10px;
+        color: #333;
+        background: #45aed0;
+        text-decoration: none;
+    }
+    #navRes li a:hover{
+        color: #fff;
+        background: #939393;
+    }
+    #navRes li ul{
+        display: none;
+        position: absolute;
+        z-index: 999;
+        left: 0;
+    }
+    #navRes li:hover ul{
+        display: block; /* display the dropdown */
+    }
+</style>
 
 <script
 	src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"
@@ -133,6 +168,69 @@
       	   	} 
       }
 
+
+function oppurtunityTracker(){
+	/* var existing =  $("#exist").val(); */
+	var type = $("#type").val();
+	var provideBy = $("#providedBy").val();
+	var provideFor = $("#mySelect").val();
+	var date = $("#datepicker").val();
+	var arrayValues=[type,provideBy,provideFor,date];
+	$.ajax({
+		  url: '/layout/connection/GlobalCrud.php',
+ 		  type: 'POST',
+ 		  async: false,
+			data: {operation: "oppurtunityTrackerInsert", sql: "trackerInsert", sqlValues : arrayValues},
+			success: function(response) {
+				
+				 $("#AddSucessful").css("display", "block");
+				/*  setTimeout(function(){
+  				   $("#AddSucessful").css("display", "none");
+  			      },1000); */
+
+				 return true;
+				 	},
+			error: function(e){ 
+				return false;
+	}
+
+	});
+	
+	
+}
+
+
+function supportTracking() {
+        
+       	 var supportby = $("#supportTrackingSupportby").val(); 
+         var supportto = $("#supportTrackingSupportto").val();
+         var date = $("#supportTrackingDate").val();
+         var hours = $("#supportTrackingHours").val();
+         var description = $("#supportTrackingDescription").val();
+         var arrayValues = [supportby,supportto,date,hours,description];
+           	$.ajax({
+           		  url: '/layout/connection/GlobalCrud.php',
+           		  type: 'POST',
+           		  async: false,
+           		  data: {operation: "supportTracking", sql: "supportTrackerInsert",sqlValues : arrayValues },
+           		  success: function(response) {
+               		  
+
+           			  $("#AddRecord").css("display", "block");
+           			 setTimeout(function(){
+      				   $("#AddRecord").css("display", "none");
+      			      },5000);
+
+           		  return false;
+           		  },
+           		  error: function(e) {
+               	   return false;
+           		  }
+           		});
+   		
+       	   
+       }
+
      function checkPasswordAndConform(){
 
          var pass = $("#password").val();
@@ -152,19 +250,18 @@
          }
      }
      
-
+       
      function getTheEmail(tablename) {
       	var name = document.getElementById("assignedtoid").value;
         
           	$.ajax({
           		  url: '/layout/connection/GlobalCrud.php',
           		  type: 'POST',
-          		  data: {operation: "email", sql: "select * from "+tablename+" where id = '"+name+"'" , sqlValues:""},
+          		  data: {operation: "email", sql: "select * from "+tablename+" where id = '"+name+"'" , sqlValues:"",body:"",method:""},
           		  success: function(response) {
-          		  	var splitted = response.split(",", 1);
-					
-					document.getElementById("employeeEmail").value = splitted;
-          		//  var result = MatchIgnoreCase(name,splitted+"");
+          		  	var splitted = response.split(",", 2);
+          		    document.getElementById("employeeEmail").value = splitted[0];
+					document.getElementById("employeeName").value = splitted[1];
           		  	
           		  },
           		  error: function(e) {
@@ -264,124 +361,31 @@ function disableEditButton(role){
 	}
 }
   </script>
-<style type="text/css">
-.mainHeader {
-	height: 100px;
-}
 
-#content {
-	padding-top: 10px;
-}
-
-#nav {
-	width: 100%;
-	/* border : 1px solid black;  */
-	background-color: #45aed0;
-}
-
-.navigation {
-	width: 100%;
-	height: 40px;
-	padding: auto;
-}
-
-.navigation li a {
-	color: white;
-	/* background-color: #45aed0; */
-	width: 100%;
-}
-/* .navigation li a:visited {
-	background-color: white;
-} */
-.navigation li a:hover {
-	background-color: black;
-}
-
-.required label:after {
-	color: #e32;
-	content: ' *';
-	display: inline;
-}
-
-.li {
-	display: inline;
-	text-alig: right;
-	list-style: none;
-}
-
-.form-group.required .control-label:after {
-	content: "*";
-	color: red;
-}
-
-.left {
-	float: left;
-
-	/* clear: left;
-	position: relative;
-	bottom: -50px; */
-}
-
-.right {
-	float: right;
-	padding-top: 40px;
-	width: 60%;
-	color: #45aed0;
-	/*clear: right; */
-}
-
-#DeletedRecord {
-	text-align: center;
-	font-size: small;
-	color: red;
-}
-
-#hide {
-	display: none;
-}
-
-.RowToClick {
-	display: none;
-}
-
-.RowToClick2 {
-	display: none;
-}
-
-.RowToClick1 {
-	display: block;
-}
-
-.labelData {
-	font-size: 25px;
-	padding-top: 15px;
-	color: #45aed0;
-}
-</style>
 <link rel="shortcut icon" href="./img/favicon.ico" type="image/x-icon" />
 </head>
 <?php
 error_reporting ( 0 );
 session_start ();
 $username = $_SESSION ['username'];
-$role = $_SESSION['role'];
+$role = $_SESSION ['role'];
 if (! empty ( $username )) {
 	?>
-<body onload="disableEditButton('<?php echo $role?>')">
+<body onload="disableEditButton('<?php echo trim($role)?>')">
 
 
 
 
 
 	<!-- Begin Wrapper -->
-	<div class="container-fluid" >
+	<div class="container-fluid">
 
 		<div class="mainHeader">
 			<ul class="li">
 
 				<li class="left"><img src="./img/logo_blue.gif" /></li>
-				<li class="right"><h1>Data Management Tool</h1></li>
-				
+				<li class="right" id="dmtHeading"><h1>Data Management Tool</h1></li>
+
 			</ul>
 		</div>
 		<!-- Begin Header -->
@@ -392,23 +396,52 @@ if (! empty ( $username )) {
 
 
 		<div id="nav">
-			<div class="navigation">
-				<nav class="navbar navbar-default">
+			<!-- <div class="navigation">
+				<nav class="navbar navbar-default"> 
 					<div class="container-fluid">
-						<ul class="nav">
-						<?php include 'menu.php';?>
-					</ul>
+						
 					</div>
 				</nav>
 
-			</div>
+			</div> -->
+			<ul>
+						<?php include 'menu.php';?>
+					</ul>
 		</div>
-	 <div align="right">
 		
-Welcome to <?php  echo $_SESSION['username'];?><br> <a href="login.php"
-				class="logout">logout</a>
+		
+		
+		
+		<ul id="navRes">
+		 <li>
+            <a href="#">Select</a>
+            <ul id="navRes">
+               <?php include 'menu.php';?>
+            </ul>
+        </li>
+		
+		</ul>
+
+
+
+
+
+		
+		
+		
+		<div align="right">
+		
+Welcome to <?php  echo $_SESSION['username']; ?><br> <a
+				href="logout.php" class="logout">logout</a>
 		</div>
 
+		
+		
+		
+		
+		
+		
+		
 		<!-- End Naviagtion -->
 		<!-- Begin Content -->
 
@@ -583,19 +616,17 @@ Welcome to <?php  echo $_SESSION['username'];?><br> <a href="login.php"
 		case 43 :
 			include './dashboard/dashboard.php';
 			break;
-			
-			
-			
-			/* User Details */
-			case 44 :
-				include './registration/registration_home.php';
-				break;
-			case 45 :
-				include './registration/create.php';
-				break;
-			case 46 :
-				include './registration/update.php';
-				break;
+		
+		/* User Details */
+		case 44 :
+			include './registration/registration_home.php';
+			break;
+		case 45 :
+			include './registration/create.php';
+			break;
+		case 46 :
+			include './registration/update.php';
+			break;
 		/* client_contact */
 		/*
 		 * case 43 :
@@ -613,9 +644,24 @@ Welcome to <?php  echo $_SESSION['username'];?><br> <a href="login.php"
 		 * break;
 		 */
 		
+                   /* Support tracker */
+			case 47 :
+				include './supporttracker/supporttracker_home.php';
+				break;
+case 48 :
+					include './supporttracker/update.php';
+					break;
+                  /* Opportunity tracker */
+			case 55 :
+				include './opportunity/opportunity.php';
+				break;
+case 56 :
+include './opportunity/update.php'; 
+break;
+
 		default :
 			include './dashboard/dashboard.php';
-			break;
+			break; 
 	}
 } else {
 	include './login.php';

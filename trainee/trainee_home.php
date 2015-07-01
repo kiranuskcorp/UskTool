@@ -22,9 +22,11 @@
 			<table data-filter="#filter" class="footable">
 				<thead>
 					<tr>
-						<th>Name</th>
+					
+						<th>Name </th>
+                                                 <th>Phone</th>
 						<th>Email</th>
-						<th>Phone</th>
+						
 						<th>Technology</th>
 						<th>Batch</th>
 						<th>Fee Status</th>
@@ -57,7 +59,7 @@
 					foreach ($data as $row) {
 						$emailTd = '<td></td>';
 						if(!empty($row['email'])){
-							$emailTd = '<td> <i class="fa fa-envelope"></i> '. $row['email'] . '</td>';
+							$emailTd = '<td> <i class="fa fa-envelope"></i> <a href="mailto:tsreenath1985@gmail.com">'. $row['email'] . '</a></td>';
 						}
 						$batchTd='<td></td>';
 						if(!empty($row['batch_id'])){
@@ -71,10 +73,12 @@
 								$phoneTd = '<td> <i class="fa fa-phone"></i> '. $row['phone'].'</td>';
 							}
 						}
+						
 						echo '<tr>';
 						echo '<td>'. $row['name']  . '</td>';
+echo $phoneTd;
 						echo $emailTd;
-						echo $phoneTd;
+						
 						echo '<td>'. $row['technology_name'] . '</td>';
 						echo $batchTd;
 						echo '<td>'. $row['trainee_fee_status'] . '</td>';
@@ -93,8 +97,8 @@
 
 					
 						  ?>
-						  <br> Total Number Of Trainees:
-					<?php echo $count;?>
+						<br><p id="mainCount" style="display: block;"> Total Number Of Trainee: <?php echo $count;?></p>
+													<p id="mainCountDup" style="display: none;"> Total Number Of Supports : <span id="countDup"></span></p>
 				</tbody>
 			</table>
 			<label id="NoRowsAvailable" style="display: none">  No result matched for search criteria	</label>

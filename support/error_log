@@ -1,0 +1,77 @@
+[15-Jun-2015 20:25:50 Asia/Kolkata] PHP Warning:  Invalid argument supplied for foreach() in /home/uskcorpi/public_html/datamanagement/layout/support/create.php on line 137
+[15-Jun-2015 20:26:30 Asia/Kolkata] PHP Warning:  Invalid argument supplied for foreach() in /home/uskcorpi/public_html/datamanagement/layout/support/update.php on line 134
+[15-Jun-2015 20:34:01 Asia/Kolkata] PHP Warning:  Invalid argument supplied for foreach() in /home/uskcorpi/public_html/datamanagement/layout/support/create.php on line 137
+[15-Jun-2015 20:34:13 Asia/Kolkata] PHP Warning:  Invalid argument supplied for foreach() in /home/uskcorpi/public_html/datamanagement/layout/support/update.php on line 134
+[15-Jun-2015 20:40:54 Asia/Kolkata] PHP Warning:  Invalid argument supplied for foreach() in /home/uskcorpi/public_html/datamanagement/layout/support/update.php on line 134
+[15-Jun-2015 20:42:40 Asia/Kolkata] PHP Warning:  Invalid argument supplied for foreach() in /home/uskcorpi/public_html/datamanagement/layout/support/update.php on line 134
+[15-Jun-2015 20:42:59 Asia/Kolkata] PHP Warning:  Invalid argument supplied for foreach() in /home/uskcorpi/public_html/datamanagement/layout/support/update.php on line 134
+[15-Jun-2015 20:43:09 Asia/Kolkata] PHP Warning:  Invalid argument supplied for foreach() in /home/uskcorpi/public_html/datamanagement/layout/support/update.php on line 134
+[15-Jun-2015 20:43:27 Asia/Kolkata] PHP Warning:  Invalid argument supplied for foreach() in /home/uskcorpi/public_html/datamanagement/layout/support/update.php on line 134
+[15-Jun-2015 20:43:40 Asia/Kolkata] PHP Warning:  Invalid argument supplied for foreach() in /home/uskcorpi/public_html/datamanagement/layout/support/update.php on line 134
+[15-Jun-2015 20:43:58 Asia/Kolkata] PHP Warning:  Invalid argument supplied for foreach() in /home/uskcorpi/public_html/datamanagement/layout/support/update.php on line 134
+[15-Jun-2015 20:44:27 Asia/Kolkata] PHP Fatal error:  Uncaught exception 'PDOException' with message 'SQLSTATE[HY093]: Invalid parameter number: number of bound variables does not match number of tokens' in /home/uskcorpi/public_html/datamanagement/layout/connection/GlobalCrud.php:95
+Stack trace:
+#0 /home/uskcorpi/public_html/datamanagement/layout/connection/GlobalCrud.php(95): PDOStatement->execute(Array)
+#1 /home/uskcorpi/public_html/datamanagement/layout/support/create.php(67): GlobalCrud::setData('supportInsert', Array)
+#2 {main}
+  thrown in /home/uskcorpi/public_html/datamanagement/layout/connection/GlobalCrud.php on line 95
+[15-Jun-2015 20:45:43 Asia/Kolkata] PHP Fatal error:  Uncaught exception 'PDOException' with message 'SQLSTATE[HY093]: Invalid parameter number: number of bound variables does not match number of tokens' in /home/uskcorpi/public_html/datamanagement/layout/connection/GlobalCrud.php:95
+Stack trace:
+#0 /home/uskcorpi/public_html/datamanagement/layout/connection/GlobalCrud.php(95): PDOStatement->execute(Array)
+#1 /home/uskcorpi/public_html/datamanagement/layout/support/create.php(67): GlobalCrud::setData('supportInsert', Array)
+#2 {main}
+  thrown in /home/uskcorpi/public_html/datamanagement/layout/connection/GlobalCrud.php on line 95
+[15-Jun-2015 20:48:32 Asia/Kolkata] PHP Fatal error:  Uncaught exception 'PDOException' with message 'SQLSTATE[HY093]: Invalid parameter number: number of bound variables does not match number of tokens' in /home/uskcorpi/public_html/datamanagement/layout/connection/GlobalCrud.php:95
+Stack trace:
+#0 /home/uskcorpi/public_html/datamanagement/layout/connection/GlobalCrud.php(95): PDOStatement->execute(Array)
+#1 /home/uskcorpi/public_html/datamanagement/layout/support/create.php(67): GlobalCrud::setData('supportInsert', Array)
+#2 {main}
+  thrown in /home/uskcorpi/public_html/datamanagement/layout/connection/GlobalCrud.php on line 95
+[15-Jun-2015 20:48:52 Asia/Kolkata] PHP Fatal error:  Uncaught exception 'PDOException' with message 'SQLSTATE[HY093]: Invalid parameter number: number of bound variables does not match number of tokens' in /home/uskcorpi/public_html/datamanagement/layout/connection/GlobalCrud.php:95
+Stack trace:
+#0 /home/uskcorpi/public_html/datamanagement/layout/connection/GlobalCrud.php(95): PDOStatement->execute(Array)
+#1 /home/uskcorpi/public_html/datamanagement/layout/support/create.php(67): GlobalCrud::setData('supportInsert', Array)
+#2 {main}
+  thrown in /home/uskcorpi/public_html/datamanagement/layout/connection/GlobalCrud.php on line 95
+[15-Jun-2015 20:51:21 Asia/Kolkata] PHP Warning:  Invalid argument supplied for foreach() in /home/uskcorpi/public_html/datamanagement/layout/support/update.php on line 134
+[15-Jun-2015 20:59:35 Asia/Kolkata] PHP Warning:  Invalid argument supplied for foreach() in /home/uskcorpi/public_html/datamanagement/layout/support/create.php on line 137
+[16-Jun-2015 07:15:29 Asia/Kolkata] PHP Warning:  Invalid argument supplied for foreach() in /home/uskcorpi/public_html/datamanagement/layout/support/create.php on line 137
+[16-Jun-2015 15:40:28 Asia/Kolkata] PHP Warning:  Invalid argument supplied for foreach() in /home/uskcorpi/public_html/datamanagement/layout/support/update.php on line 134
+[16-Jun-2015 15:41:35 Asia/Kolkata] PHP Warning:  Invalid argument supplied for foreach() in /home/uskcorpi/public_html/datamanagement/layout/support/update.php on line 134
+[16-Jun-2015 15:51:03 Asia/Kolkata] PHP Warning:  Invalid argument supplied for foreach() in /home/uskcorpi/public_html/datamanagement/layout/support/update.php on line 134
+[16-Jun-2015 16:03:52 Asia/Kolkata] PHP Warning:  Invalid argument supplied for foreach() in /home/uskcorpi/public_html/datamanagement/layout/support/update.php on line 134
+[16-Jun-2015 17:49:29 Asia/Kolkata] PHP Warning:  Invalid argument supplied for foreach() in /home/uskcorpi/public_html/datamanagement/layout/support/create.php on line 137
+[16-Jun-2015 17:51:21 Asia/Kolkata] PHP Warning:  Invalid argument supplied for foreach() in /home/uskcorpi/public_html/datamanagement/layout/support/create.php on line 137
+[16-Jun-2015 17:51:56 Asia/Kolkata] PHP Warning:  Invalid argument supplied for foreach() in /home/uskcorpi/public_html/datamanagement/layout/support/update.php on line 134
+[16-Jun-2015 17:52:21 Asia/Kolkata] PHP Warning:  Invalid argument supplied for foreach() in /home/uskcorpi/public_html/datamanagement/layout/support/update.php on line 134
+[17-Jun-2015 10:14:32 Asia/Kolkata] PHP Warning:  Invalid argument supplied for foreach() in /home/uskcorpi/public_html/datamanagement/layout/support/update.php on line 134
+[17-Jun-2015 10:14:51 Asia/Kolkata] PHP Warning:  Invalid argument supplied for foreach() in /home/uskcorpi/public_html/datamanagement/layout/support/update.php on line 134
+[17-Jun-2015 12:33:37 Asia/Kolkata] PHP Warning:  Invalid argument supplied for foreach() in /home/uskcorpi/public_html/datamanagement/layout/support/update.php on line 134
+[17-Jun-2015 16:01:05 Asia/Kolkata] PHP Warning:  Invalid argument supplied for foreach() in /home/uskcorpi/public_html/datamanagement/layout/support/create.php on line 137
+[17-Jun-2015 16:01:48 Asia/Kolkata] PHP Warning:  Invalid argument supplied for foreach() in /home/uskcorpi/public_html/datamanagement/layout/support/update.php on line 134
+[17-Jun-2015 16:46:44 Asia/Kolkata] PHP Warning:  Invalid argument supplied for foreach() in /home/uskcorpi/public_html/datamanagement/layout/support/create.php on line 137
+[18-Jun-2015 07:25:56 Asia/Kolkata] PHP Warning:  Invalid argument supplied for foreach() in /home/uskcorpi/public_html/datamanagement/layout/support/update.php on line 134
+[18-Jun-2015 07:43:41 Asia/Kolkata] PHP Warning:  Invalid argument supplied for foreach() in /home/uskcorpi/public_html/datamanagement/layout/support/create.php on line 137
+[18-Jun-2015 09:07:58 Asia/Kolkata] PHP Warning:  Invalid argument supplied for foreach() in /home/uskcorpi/public_html/datamanagement/layout/support/update.php on line 134
+[18-Jun-2015 09:08:39 Asia/Kolkata] PHP Warning:  Invalid argument supplied for foreach() in /home/uskcorpi/public_html/datamanagement/layout/support/update.php on line 134
+[18-Jun-2015 09:10:19 Asia/Kolkata] PHP Warning:  Invalid argument supplied for foreach() in /home/uskcorpi/public_html/datamanagement/layout/support/update.php on line 134
+[18-Jun-2015 09:11:35 Asia/Kolkata] PHP Warning:  Invalid argument supplied for foreach() in /home/uskcorpi/public_html/datamanagement/layout/support/update.php on line 134
+[19-Jun-2015 09:07:02 Asia/Kolkata] PHP Warning:  Invalid argument supplied for foreach() in /home/uskcorpi/public_html/datamanagement/layout/support/create.php on line 137
+[19-Jun-2015 09:07:37 Asia/Kolkata] PHP Warning:  Invalid argument supplied for foreach() in /home/uskcorpi/public_html/datamanagement/layout/support/update.php on line 134
+[22-Jun-2015 10:55:04 Asia/Kolkata] PHP Warning:  Invalid argument supplied for foreach() in /home/uskcorpi/public_html/datamanagement/layout/support/update.php on line 134
+[22-Jun-2015 11:01:35 Asia/Kolkata] PHP Warning:  Invalid argument supplied for foreach() in /home/uskcorpi/public_html/datamanagement/layout/support/update.php on line 134
+[22-Jun-2015 11:09:27 Asia/Kolkata] PHP Warning:  Invalid argument supplied for foreach() in /home/uskcorpi/public_html/datamanagement/layout/support/create.php on line 137
+[22-Jun-2015 17:39:43 Asia/Kolkata] PHP Warning:  Invalid argument supplied for foreach() in /home/uskcorpi/public_html/datamanagement/layout/support/update.php on line 134
+[23-Jun-2015 18:46:20 Asia/Kolkata] PHP Warning:  Invalid argument supplied for foreach() in /home/uskcorpi/public_html/datamanagement/layout/support/create.php on line 137
+[24-Jun-2015 09:54:13 Asia/Kolkata] PHP Warning:  Invalid argument supplied for foreach() in /home/uskcorpi/public_html/datamanagement/layout/support/create.php on line 137
+[24-Jun-2015 10:35:04 Asia/Kolkata] PHP Warning:  Invalid argument supplied for foreach() in /home/uskcorpi/public_html/datamanagement/layout/support/update.php on line 134
+[24-Jun-2015 10:37:29 Asia/Kolkata] PHP Warning:  Invalid argument supplied for foreach() in /home/uskcorpi/public_html/datamanagement/layout/support/create.php on line 137
+[24-Jun-2015 10:38:28 Asia/Kolkata] PHP Warning:  Invalid argument supplied for foreach() in /home/uskcorpi/public_html/datamanagement/layout/support/update.php on line 134
+[24-Jun-2015 10:39:12 Asia/Kolkata] PHP Warning:  Invalid argument supplied for foreach() in /home/uskcorpi/public_html/datamanagement/layout/support/update.php on line 134
+[26-Jun-2015 09:46:52 Asia/Kolkata] PHP Warning:  Invalid argument supplied for foreach() in /home/uskcorpi/public_html/datamanagement/layout/support/update.php on line 134
+[26-Jun-2015 09:54:04 Asia/Kolkata] PHP Warning:  Invalid argument supplied for foreach() in /home/uskcorpi/public_html/datamanagement/layout/support/create.php on line 137
+[26-Jun-2015 11:16:02 Asia/Kolkata] PHP Warning:  Invalid argument supplied for foreach() in /home/uskcorpi/public_html/datamanagement/layout/support/update.php on line 134
+[26-Jun-2015 12:59:49 Asia/Kolkata] PHP Warning:  Invalid argument supplied for foreach() in /home/uskcorpi/public_html/datamanagement/layout/support/update.php on line 134
+[26-Jun-2015 13:02:32 Asia/Kolkata] PHP Warning:  Invalid argument supplied for foreach() in /home/uskcorpi/public_html/datamanagement/layout/support/update.php on line 134
+[26-Jun-2015 16:44:39 Asia/Kolkata] PHP Warning:  Invalid argument supplied for foreach() in /home/uskcorpi/public_html/datamanagement/layout/support/update.php on line 134
+[26-Jun-2015 16:45:56 Asia/Kolkata] PHP Warning:  Invalid argument supplied for foreach() in /home/uskcorpi/public_html/datamanagement/layout/support/update.php on line 134

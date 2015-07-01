@@ -25,6 +25,7 @@
 					<tr>
 						<th>Name</th>
 						<th>Technology Name</th>
+						<th>Referred By</th>
 						<th>Phone</th>
 						<th>Email</th>
 						<!--   <th>Created Date</th>
@@ -62,6 +63,7 @@
 						echo '<tr>';
 						echo '<td>' . $row ['name'] . '</td>';
 						echo '<td>' . $row ['technology_name'] . '</td>';
+						echo '<td>' . $row ['employee_name'] . '</td>';
 						echo $phoneTd;
 						echo $emailTd;
 						// echo '<td>'. $row['created_date'] . '</td>';

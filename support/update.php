@@ -4,9 +4,11 @@ $path = $_SERVER['DOCUMENT_ROOT'];
 $path .= "/layout/connection/GlobalCrud.php";
 include_once($path);
 $traineeData = GlobalCrud::getData('traineeSelect');
+$trainerData = GlobalCrud::getData('trainerSelect');
 $employeeData = GlobalCrud::getData('employeeSelect');
 $timeConstants = explode(',', GlobalCrud::getConstants("timeConstants"));
 $supportConstants = explode(',', GlobalCrud::getConstants("supportConstants"));
+$supportPaidConstants = explode(',', GlobalCrud::getConstants("supportPaidConstants"));
 $id = null;
 date_default_timezone_set("Asia/Kolkata");
 if ( !empty($_GET['id'])) {
@@ -20,12 +22,14 @@ if ( null==$id ) {
 if ( !empty($_POST)) {
 	//supportedby traineeid startdate enddate allottedtime endclient status technologyused description
 	$traineeid = $_POST['traineeid'];
-	$supportedby=$_POST['supportedby'];
+	$supportedby='';
+	$trainerid = $_POST['trainerid'];
 	$startdate=$_POST['startdate'];
 	$enddate=$_POST['enddate'];
 	$allottedtime=$_POST['allottedtime'];
 	$endclient=$_POST['endclient'];
 	$status=$_POST['status'];
+$paidby=$_POST['paidby'];
 	$technologyused=$_POST['technologyused'];
 	$updateddate =  date("Y/m/d");
 	$description = $_POST['description'];
@@ -35,19 +39,21 @@ if ( !empty($_POST)) {
 	if (empty($traineeid)) {
 		$valid = false;
 	}
-	if (empty($supportedby)) {
+	if (empty($trainerid)) {
 		$valid = false;
 	}
 	if (empty($startdate)) {
 		$valid = false;
 	}
 	
-
+	if (empty($paidby)) {
+		$valid = false;
+	}
 
 	// update data
 	if ($valid) {
 		$sql = "supportUpdate";
-		$sqlValuesForUpdate = array($traineeid,$supportedby,$startdate,$enddate,$allottedtime,$endclient,$status,$technologyused,$updateddate,$description,$id);
+		$sqlValuesForUpdate = array($traineeid,$supportedby,$trainerid,$startdate,$enddate,$allottedtime,$endclient,$status,$technologyused,$paidby,$updateddate,$description,$id);
 		GlobalCrud::update($sql,$sqlValuesForUpdate);
 		header("Location:../?content=40");
 	}
@@ -58,12 +64,14 @@ else {
 	$sqlValues = array($id);
 	$data = GlobalCrud::selectById($sql,$sqlValues);
 	$traineeid = $data['trainee_id'];
-	$supportedby=$data['supported_by'];
+	$trainerid = $data['trainer_id'];
+	 $supportedby=$data['supported_by']; 
 	$startdate=$data['start_date'];
 	$enddate=$data['end_date'];
 	$allottedtime=$data['allotted_time'];
 	$endclient=$data['end_client'];
 	$status=$data['status'];
+$paidby=$data['paid_by'];
 	$technologyused=$data['technology_used'];
 	//$createdDate = $data['created_date'];
 	//$updatedDate = $data['updated_date'];
@@ -81,15 +89,19 @@ else {
 
 <script type="text/javascript">
 function validate(){
-	var supportedbyid =document.getElementById("supportedbyid").value;
+	var trainerid =document.getElementById("trainerid").value;
 	var traineeid =document.getElementById("traineeid").value;
-	if(supportedbyid==0 ){
+	if(trainerid==0 ){
 		
-		document.getElementById("supportedbyidError").innerHTML="Employee Name Is Required";
+		document.getElementById("traineridError").innerHTML="Trainer Name Is Required";
 		return false;
 	}
 	else if(traineeid==0){
 		document.getElementById("traineeidError").innerHTML="Trainee Name Is Required";
+		return false;
+	} 
+else if(paidbyid==0){
+		document.getElementById("paidbyidError").innerHTML="Paid By Is Required";
 		return false;
 	} 
 	else{
@@ -113,7 +125,7 @@ function validate(){
 
 
 
-				<div class="control-group">
+			<!-- 	<div class="control-group">
 				<div class="form-group required">
 					<label class="control-label">Employee Name</label>
 					<div class="controls">
@@ -137,7 +149,7 @@ else {
 						</select><span id="supportedbyidError" style="color: red"></span>
 						</div>
 					</div>
-				</div>
+				</div> -->
 
 
 				<div class="control-group">
@@ -167,6 +179,34 @@ else {
 				</div>
 
 
+				<div class="control-group">
+				<div class="form-group required">
+					<label class="control-label">Trainer Name</label>
+					<div class="controls">
+						<select name="trainerid" id="trainerid">
+							<option value="0">Select</option>
+							<?php foreach ($trainerData as $row): ?>
+							<option <?php if($row['id'] == $trainerid) {  ?>
+								selected="selected" value="<?=$row['id']?>">
+								<?php
+}
+else {
+								?>
+								value="<?=$row['id']?>" >
+								<?php
+							}
+							echo $row ['name'];
+							?>
+							</option>
+
+							<?php endforeach ?>
+						</select><span id="traineridError" style="color: red"></span>
+						</div>
+					</div>
+				</div>
+				
+				
+				
 				<div class="control-group">
 				<div class="form-group required">
 					<label class="control-label">Start Date</label>
@@ -222,7 +262,7 @@ else {
 				<div class="control-group">
 					<label class="control-label">Status</label>
 					<div class="controls">
-						<select name="status" type="text">
+						<select name="status" id="selectInSupport" onchange="checkTheUserStatus('<?php echo $role?>','selectInSupport','supportUpdate')">
 							<option value="none">Select</option>
 							<?php foreach ($supportConstants as $supportConstant): ?>
 							<option <?php if($supportConstant == $status) {?>
@@ -235,8 +275,8 @@ else {
 							</option>
 
 							<?php endforeach ?>
-							</option>
-						</select>
+							
+						</select><span id="userBasedAllowedAndNotAllowed" style="display: none;color:red;">This seleted value is not allowed for this login user</span>
 					</div>
 				</div>
 
@@ -252,6 +292,32 @@ else {
 					</div>
 				</div>
 
+	<div class="control-group">
+				<div class="form-group required">
+					<label class="control-label">PaidBy</label>
+					<div class="controls">
+						<select name="paidby" type="text" id="paidbyid">
+							<option value="">Select</option>
+							
+							<?php foreach ($supportPaidConstants as $supportPaidConstant): ?>
+							<option <?php if($supportPaidConstant == $paidby) {?>
+								selected="selected" value=" <?=$supportPaidConstant?>">
+								<?php }else {?>
+								value="<?=$supportPaidConstant?>">
+								<?php }
+								echo $supportPaidConstant;
+								?>
+							</option>
+
+							<?php endforeach ?>
+							
+							
+							
+						</select><span id="paidbyidError" style="color: red"></span>
+					</div>
+					</div>
+				</div>
+				
 				<!-- <div class="control-group"> 
 					    <label class="control-label">Created Date</label>
 					    <div class="controls">
@@ -277,8 +343,8 @@ else {
 				</div>
 
 				<div class="form-actions">
-					<button type="submit" class="btn btn-success">Update</button>
-					<a class="btn" href="index.php">Back</a>
+					<button type="submit" class="btn btn-success" id="supportUpdate">Update</button>
+					<!-- <a class="btn" href="index.php">Back</a> -->
 				</div>
 			</form>
 		</div>

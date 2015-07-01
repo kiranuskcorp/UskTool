@@ -19,9 +19,27 @@ if ($operation == "duplicate"){
 	GlobalCrud::duplicate($sql);
 }
 
+
+if ($operation == "duplicateUser"){
+	GlobalCrud::duplicateUser($sql);
+}
 if ($operation == "email"){
 	GlobalCrud::getEmail($sql);
 }
+if ($operation == "supportTracking") {
+	// console.log("sda");
+	GlobalCrud::setData ( $sql, $sqlValues );
+}
+
+if ($operation == "tracker") {
+	GlobalCrud::OpportunityTracker( $sql );
+}
+
+if ($operation == "oppurtunityTrackerInsert"){
+	GlobalCrud::setData($sql,$sqlValues);
+}
+
+
 
 class GlobalCrud {
 	public static function getData($value) {
@@ -47,6 +65,19 @@ class GlobalCrud {
 		Database::disconnect ();
 	}
 	
+	
+	public static function duplicateUser($sql) {
+	
+		$pdo = Database::connect ();
+		$sql = $sql;
+		$data = $pdo->query ( $sql );
+		foreach ($data as $row) {
+			echo $row['username'];
+			echo ',';
+		}
+		return $data;
+		Database::disconnect ();
+	}
 	
 	public static function delete($value, $id) {
 		$pdo = Database::connect ();
@@ -94,7 +125,6 @@ public static function setData($value, $sqlValues) {
 		$sql = SqlConstants::$allSelect [$value];
 		$q = $pdo->prepare ( $sql );
 		$q->execute ( $sqlValues );
-		$q->closeCursor();
 		$data = $q->fetchAll ( PDO::FETCH_ASSOC );
 		return $data;
 		Database::disconnect ();
@@ -105,29 +135,44 @@ public static function setData($value, $sqlValues) {
 		$sql = $sql;
 		$data = $pdo->query ( $sql );
 		foreach ($data as $row) {
-			echo $row['email'];
+			echo $row ['email'];
+			echo ',';
+			echo $row ['name'];
 			echo ',';
 		}
 		return $data;
 		Database::disconnect ();
 	}
 	public static function sendEmail($toEmail,$subject,$body){
-		$headers = 'From: gangonekiran@gmail.com' . "\r\n" .
+		$headers = 'From: tsreenath1985@gmail.com' . "\r\n" .
 				//'Reply-To: kiran.uskcorp@gmail.com' . "\r\n" .
-				"CC: tsreenath1985@gmail.com".  "\r\n" .
+				'CC: prasad.uskcorp@gmail.com'.  "\r\n" .
 				'X-Mailer: PHP/' . phpversion();
-		
-		//$toEmail = "kiran.uskcorp@gmail.com";
-		//$subject = "Subject Line Here";
-		//$body = "Body of email goes here";
+	
 		
 		if(mail($toEmail , $subject, $body, $headers))
-			echo "email sent";
+			return true;
 			else
-			echo "email *not* sent";
+			return false;
 	}
 	
 	
+public static function OpportunityTracker($sql) {
+	
+		$pdo = Database::connect ();
+		$sql = $sql;
+		$data = $pdo->query ( $sql );
+		foreach ($data as $row) {
+			echo $row['id'];
+			echo ',';
+			echo $row['name'];
+			echo ',';
+		}
+		return $data;
+		Database::disconnect ();
+	}
+	
+
 	
 
 }

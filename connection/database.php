@@ -1,14 +1,14 @@
 <?php
 class Database
 {
- private static $dbName = 'dmt_final' ;
+	/* private static $dbName = 'dmt_final' ;
 	private static $dbHost = 'localhost' ;
 	private static $dbUsername = 'root';
-	private static $dbUserPassword = ''; 
-	/*private static $dbName = 'uskcorpi_dm_tool_test' ;
+	private static $dbUserPassword = '';  */
+	private static $dbName = 'uskcorpi_dm_tool_test' ;
 	private static $dbHost = '119.18.48.51' ;
 	private static $dbUsername = 'uskcorpi_test';
-	private static $dbUserPassword = 'test123'; */
+	private static $dbUserPassword = 'test123'; 
 
 	private static $cont  = null;
 

@@ -15,9 +15,9 @@
 					role="button"><i class="fa fa-file-excel-o"></i> export</a>
 			</p>
 
-			Search:<input id="filter" type="text" /> Include <input
+			Search:<input id="filter" type="text" />  <?php if($role == 'PowerUser') {?> Include <input
 				type="checkbox" name="include" id="checkboxID"
-				onchange="changeTheClass()" /> <label id="DeletedRecord"
+				onchange="changeTheClass()" />  <?php }?> <label id="DeletedRecord"
 				style="display: none"> Record Deleted Successfully </label>
 			<table data-filter="#filter" class="footable" id="myTable">
 				<thead>

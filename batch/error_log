@@ -1,0 +1,24 @@
+[26-Jun-2015 12:18:36 Asia/Kolkata] PHP Fatal error:  Uncaught exception 'PDOException' with message 'SQLSTATE[HY000]: General error: 2014 Cannot execute queries while other unbuffered queries are active.  Consider using PDOStatement::fetchAll().  Alternatively, if your code is only ever going to run against mysql, you may enable query buffering by setting the PDO::MYSQL_ATTR_USE_BUFFERED_QUERY attribute.' in /home/uskcorpi/public_html/datamanagement/layout/connection/GlobalCrud.php:95
+Stack trace:
+#0 /home/uskcorpi/public_html/datamanagement/layout/connection/GlobalCrud.php(95): PDOStatement->execute(Array)
+#1 /home/uskcorpi/public_html/datamanagement/layout/batch/create.php(51): GlobalCrud::setData('batchInsert', Array)
+#2 {main}
+  thrown in /home/uskcorpi/public_html/datamanagement/layout/connection/GlobalCrud.php on line 95
+[26-Jun-2015 12:41:33 Asia/Kolkata] PHP Fatal error:  Uncaught exception 'PDOException' with message 'SQLSTATE[HY000]: General error: 2014 Cannot execute queries while other unbuffered queries are active.  Consider using PDOStatement::fetchAll().  Alternatively, if your code is only ever going to run against mysql, you may enable query buffering by setting the PDO::MYSQL_ATTR_USE_BUFFERED_QUERY attribute.' in /home/uskcorpi/public_html/datamanagement/layout/connection/GlobalCrud.php:95
+Stack trace:
+#0 /home/uskcorpi/public_html/datamanagement/layout/connection/GlobalCrud.php(95): PDOStatement->execute(Array)
+#1 /home/uskcorpi/public_html/datamanagement/layout/batch/create.php(51): GlobalCrud::setData('batchInsert', Array)
+#2 {main}
+  thrown in /home/uskcorpi/public_html/datamanagement/layout/connection/GlobalCrud.php on line 95
+[26-Jun-2015 12:53:02 Asia/Kolkata] PHP Fatal error:  Uncaught exception 'PDOException' with message 'SQLSTATE[HY000]: General error: 2014 Cannot execute queries while other unbuffered queries are active.  Consider using PDOStatement::fetchAll().  Alternatively, if your code is only ever going to run against mysql, you may enable query buffering by setting the PDO::MYSQL_ATTR_USE_BUFFERED_QUERY attribute.' in /home/uskcorpi/public_html/datamanagement/layout/connection/GlobalCrud.php:95
+Stack trace:
+#0 /home/uskcorpi/public_html/datamanagement/layout/connection/GlobalCrud.php(95): PDOStatement->execute(Array)
+#1 /home/uskcorpi/public_html/datamanagement/layout/batch/create.php(51): GlobalCrud::setData('batchInsert', Array)
+#2 {main}
+  thrown in /home/uskcorpi/public_html/datamanagement/layout/connection/GlobalCrud.php on line 95
+[26-Jun-2015 12:55:17 Asia/Kolkata] PHP Fatal error:  Uncaught exception 'PDOException' with message 'SQLSTATE[HY000]: General error: 2014 Cannot execute queries while other unbuffered queries are active.  Consider using PDOStatement::fetchAll().  Alternatively, if your code is only ever going to run against mysql, you may enable query buffering by setting the PDO::MYSQL_ATTR_USE_BUFFERED_QUERY attribute.' in /home/uskcorpi/public_html/datamanagement/layout/connection/GlobalCrud.php:95
+Stack trace:
+#0 /home/uskcorpi/public_html/datamanagement/layout/connection/GlobalCrud.php(95): PDOStatement->execute(Array)
+#1 /home/uskcorpi/public_html/datamanagement/layout/batch/create.php(51): GlobalCrud::setData('batchInsert', Array)
+#2 {main}
+  thrown in /home/uskcorpi/public_html/datamanagement/layout/connection/GlobalCrud.php on line 95

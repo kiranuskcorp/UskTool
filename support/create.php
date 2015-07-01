@@ -4,24 +4,28 @@ $path = $_SERVER['DOCUMENT_ROOT'];
 $path .= "/layout/connection/GlobalCrud.php";
 include_once($path);
 $traineeData = GlobalCrud::getData('traineeSelect');
+$trainerData = GlobalCrud::getData('trainerSelect');
 $employeeData = GlobalCrud::getData('employeeSelect');
 $timeConstants = explode(',', GlobalCrud::getConstants("timeConstants"));
 $supportConstants = explode(',', GlobalCrud::getConstants("supportConstants"));
+$supportPaidConstants = explode(',', GlobalCrud::getConstants("supportPaidConstants"));
 //$clientData = GlobalCrud::getData('clientSelect');
 date_default_timezone_set("Asia/Kolkata");
 if ( !empty($_POST)) {
 
 	// keep track post values
 	$traineeid = $_POST['traineeid'];
-	$supportedby=$_POST['supportedby'];
+	$supportedby = '';
+	$trainerid=$_POST['trainerid'];
 	$startdate=$_POST['startdate'];
 	$enddate=$_POST['enddate'];
 	$allottedtime=$_POST['allottedtime'];
 	$endclient=$_POST['endclient'];
 	$status=$_POST['status'];
+$paidby=$_POST['paidby'];
 	$technologyused=$_POST['technologyused'];
 	$createdDate = date("Y/m/d");
-	//$updatedDate = $_POST['updatedDate'];
+	$updatedDate = $_POST['updatedDate'];
 	$description = $_POST['description'];
 
 	// validate input
@@ -29,7 +33,7 @@ if ( !empty($_POST)) {
 	if (empty($traineeid)) {
 		$valid = false;
 	}
-	if (empty($supportedby)) {
+	if (empty($trainerid)) {
 		$valid = false;
 	}
 	if (empty($startdate)) {
@@ -47,6 +51,9 @@ if ( !empty($_POST)) {
 	if (empty($status)) {
 		$valid = false;
 	}
+if (empty($paidby)) {
+		$valid = false;
+	}
 	if (empty($technologyused)) {
 		$valid = false;
 	}
@@ -56,7 +63,7 @@ if ( !empty($_POST)) {
 	// insert data
 	if ($valid) {
 		$sql = "supportInsert";
-		$sqlValues = array($traineeid,$supportedby,$startdate,$enddate,$allottedtime,$endclient,$status,$technologyused,$createdDate,$description);
+		$sqlValues = array($traineeid,$supportedby,$trainerid,$startdate,$enddate,$allottedtime,$endclient,$status,$technologyused,$createdDate,$updatedDate,$description,$paidby);
 		GlobalCrud::setData($sql,$sqlValues);
 		header("Location:../?content=40");
 	}
@@ -81,17 +88,23 @@ if ( !empty($_POST)) {
 <script src="js/bootstrap.min.js"></script>
 <script type="text/javascript">
 function validate(){
-	var supportedbyid =document.getElementById("supportedbyid").value;
+	var trainerid =document.getElementById("trainerid").value;
 	var traineeid =document.getElementById("traineeid").value;
+var paidbyid =document.getElementById("paidbyid").value;
 	
-	if(supportedbyid==0){
+	if(trainerid==0){
 		
-		document.getElementById("supportedbyidError").innerHTML="Employee name Is Required";
+		document.getElementById("$traineridError").innerHTML="Trainer name Is Required";
 		return false;
 	}
 	else if(traineeid==0){
 		
-		document.getElementById("traineeidError").innerHTML="trainee name Is Required";
+		document.getElementById("traineeidError").innerHTML="Trainee name Is Required";
+		return false;
+	}
+else if(paidbyid==0){
+		
+		document.getElementById("paidbyidError").innerHTML="Paid by Is Required";
 		return false;
 	}
 	else{
@@ -115,7 +128,7 @@ function validate(){
 			<form class="form-horizontal" action="./support/create.php"
 				method="post" onsubmit="return validate()">
 
-				<div class="control-group">
+				<!-- <div class="control-group">
 					<div class="form-group required">
 						<label class="control-label">Employee Name</label>
 						<div class="controls">
@@ -129,7 +142,7 @@ function validate(){
 							</select><span id="supportedbyidError" style="color: red"></span>
 						</div>
 					</div>
-				</div>
+				</div> -->
 
 				<div class="control-group">
 					<div class="form-group required">
@@ -143,6 +156,23 @@ function validate(){
 									<?php endforeach ?>
 								</option>
 							</select><span id="traineeidError" style="color: red"></span>
+						</div>
+					</div>
+				</div>
+				
+				
+				<div class="control-group">
+					<div class="form-group required">
+						<label class="control-label">Trainer Name</label>
+						<div class="controls">
+							<select name="trainerid" id="trainerid">
+								<option value="0">Select</option>
+								<?php foreach ($trainerData as $row): ?>
+								<option value="<?=$row['id']?>">
+									<?php	echo $row ['name'];?>
+									<?php endforeach ?>
+								</option>
+							</select><span id="traineridError" style="color: red"></span>
 						</div>
 					</div>
 				</div>
@@ -200,10 +230,27 @@ function validate(){
 				</div>
 
 
+	<div class="control-group">
+				<div class="form-group required">
+					<label class="control-label">Paid By</label>
+					<div class="controls">
+						<select name="paidby" type="text" id="paidbyid">
+							<option value="">Select</option>
+							<?php foreach ($supportPaidConstants as $supportPaidConstant): ?>
+							<option value="<?=$supportPaidConstant?>">
+								<?php	echo $supportPaidConstant;?>
+								<?php endforeach ?>
+							</option>
+						</select><span id="paidbyidError" style="color: red"></span>
+					</div>
+					</div>
+				</div>
+
+<?php $role = $_SESSION ['role'];?>
 				<div class="control-group">
 					<label class="control-label">Status</label>
 					<div class="controls">
-						<select name="status" type="text">
+						<select name="status" id="selectInSupport" onchange="checkTheUserStatus('<?php echo $role?>','selectInSupport','supportCreate')" >
 							<option value="">Select</option>
 							<?php foreach ($supportConstants as $supportConstant): ?>
 							<option value="<?=$supportConstant?>">
@@ -211,6 +258,7 @@ function validate(){
 								<?php endforeach ?>
 							</option>
 						</select>
+						<span id="userBasedAllowedAndNotAllowed" style="display: none;color:red;">This seleted value is not allowed for this login user</span>
 					</div>
 				</div>
 
@@ -242,8 +290,8 @@ function validate(){
 				</div>
 
 				<div class="form-actions">
-					<button type="submit" class="btn btn-success">Create</button>
-					<a class="btn" href="index.php">Back</a>
+					<button type="submit" class="btn btn-success" id="supportCreate">Create</button>
+				<!-- 	<a class="btn" href="index.php">Back</a> -->
 				</div>
 			</form>
 		</div>

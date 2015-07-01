@@ -265,11 +265,11 @@ else {
 				</div>
 
 
-				
+				<?php $role = $_SESSION ['role'];?>
 				<div class="control-group">
 					<label class="control-label">Status</label>
 					<div class="controls">
-						<select name="feeStatus" type="text">
+						<select name="feeStatus" id="selectInTrainee" onchange="checkTheUserStatus('<?php echo $role?>','selectInTrainee','update')">
 							<option value="">Select</option>
 							<?php foreach ($feeStatusConstants as $feeStatusConstant): ?>
 							<option <?php if($feeStatusConstant == $feeStatus) {?>
@@ -282,8 +282,8 @@ else {
 							</option>
 
 							<?php endforeach ?>
-							</option>
-						</select>
+							
+						</select><span id="userBasedAllowedAndNotAllowed" style="display: none;color:red;">This seleted value is not allowed for this login user</span>
 					</div>
 				</div>
 				
@@ -335,7 +335,7 @@ else {
 
 				<div class="form-actions">
 					<button type="submit" class="btn btn-success" id="update">Update</button>
-					<a class="btn" href="index.php">Back</a>
+				<!-- 	<a class="btn" href="index.php">Back</a> -->
 				</div>
 			</form>
 		</div>

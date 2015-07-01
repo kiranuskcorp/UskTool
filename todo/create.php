@@ -15,7 +15,7 @@ if ( !empty($_POST)) {
 	$createdDate=date("Y/m/d");
 	$estimatedtime = $_POST['estimatedtime'];
 	$description=$_POST['description'];
-
+$employeeName=$_POST['employeeName'];
 
 	// validate input
 	$valid = true;
@@ -24,18 +24,21 @@ if ( !empty($_POST)) {
 	}
 	if (empty($status)) {
 		$valid = false;
-	} */
+	} 
 	if (empty($assignedto)) {
 		$valid = false;
-	}
+	}*/
 	/* if (empty($estimatedtime)) {
 		$valid = false;
 	}
  */
 
 	$toEmail = $_POST['employeeEmail'];
-	$subject = "Regarding Newly Task";
-	$body = "Hi Kiran,\n New Task is Created to You,Please complete it by ".$estimatedtime;
+	$subject = "Regarding Newly Created Task";
+		$body = "Hi,\n 
+			Assigned To: ".$employeeName."\n"
+					."Time Line: ".$estimatedtime."\n"
+							."Description: ".$description."\n";
 
 	// insert data
 	if ($valid) {
@@ -67,10 +70,15 @@ if ( !empty($_POST)) {
 <script type="text/javascript">
 function validate(){
 	var assignedtoid =document.getElementById("assignedtoid").value;
-	
+	var descriptionid =document.getElementById("descriptionid").value;
 	if(assignedtoid==0){
 		
 		document.getElementById("assignedtoidError").innerHTML="Employee Name Is Required";
+		return false;
+	}
+if(descriptionid.length==0){
+		
+		document.getElementById("descriptiontoidError").innerHTML="Description Is Required";
 		return false;
 	}
 	else{
@@ -150,12 +158,14 @@ function validate(){
 				</div>
 
 				<div class="control-group ">
+<div class="form-group required">
 					<label class="control-label">Description</label>
 					<div class="controls">
-						<textarea name="description" type="text" placeholder="description"
+						<textarea name="description" type="text" placeholder="description" id="descriptionid"
 							value="<?php echo !empty($description)?$description:'';?>"></textarea>
-					<input type="hidden" name="employeeEmail" id="employeeEmail" />
+					<input type="hidden" name="employeeEmail" id="employeeEmail" /><input type="hidden" name="employeeName" id="employeeName" /><span id="descriptiontoidError" style="color: red"></span>
 					</div>
+</div>
 				</div>
 
 

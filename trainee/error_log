@@ -1,0 +1,42 @@
+[13-Mar-2015 13:33:27 Asia/Kolkata] PHP Fatal error:  Uncaught exception 'PDOException' with message 'SQLSTATE[42S22]: Column not found: 1054 Unknown column 'feeStatus' in 'field list'' in /home/uskcorpi/public_html/datamanagement/layout/connection/GlobalCrud.php:64
+Stack trace:
+#0 /home/uskcorpi/public_html/datamanagement/layout/connection/GlobalCrud.php(64): PDOStatement->execute(Array)
+#1 /home/uskcorpi/public_html/datamanagement/layout/trainee/create.php(72): GlobalCrud::setData('traineeInsert', Array)
+#2 {main}
+  thrown in /home/uskcorpi/public_html/datamanagement/layout/connection/GlobalCrud.php on line 64
+[13-Mar-2015 13:33:39 Asia/Kolkata] PHP Fatal error:  Uncaught exception 'PDOException' with message 'SQLSTATE[42S22]: Column not found: 1054 Unknown column 'feeStatus' in 'field list'' in /home/uskcorpi/public_html/datamanagement/layout/connection/GlobalCrud.php:64
+Stack trace:
+#0 /home/uskcorpi/public_html/datamanagement/layout/connection/GlobalCrud.php(64): PDOStatement->execute(Array)
+#1 /home/uskcorpi/public_html/datamanagement/layout/trainee/create.php(72): GlobalCrud::setData('traineeInsert', Array)
+#2 {main}
+  thrown in /home/uskcorpi/public_html/datamanagement/layout/connection/GlobalCrud.php on line 64
+[13-Mar-2015 16:33:06 Asia/Kolkata] PHP Fatal error:  Uncaught exception 'PDOException' with message 'SQLSTATE[42S22]: Column not found: 1054 Unknown column 'feeStatus' in 'field list'' in /home/uskcorpi/public_html/datamanagement/layout/connection/GlobalCrud.php:64
+Stack trace:
+#0 /home/uskcorpi/public_html/datamanagement/layout/connection/GlobalCrud.php(64): PDOStatement->execute(Array)
+#1 /home/uskcorpi/public_html/datamanagement/layout/trainee/create.php(72): GlobalCrud::setData('traineeInsert', Array)
+#2 {main}
+  thrown in /home/uskcorpi/public_html/datamanagement/layout/connection/GlobalCrud.php on line 64
+[13-Mar-2015 16:33:29 Asia/Kolkata] PHP Fatal error:  Uncaught exception 'PDOException' with message 'SQLSTATE[42S22]: Column not found: 1054 Unknown column 'feeStatus' in 'field list'' in /home/uskcorpi/public_html/datamanagement/layout/connection/GlobalCrud.php:64
+Stack trace:
+#0 /home/uskcorpi/public_html/datamanagement/layout/connection/GlobalCrud.php(64): PDOStatement->execute(Array)
+#1 /home/uskcorpi/public_html/datamanagement/layout/trainee/create.php(72): GlobalCrud::setData('traineeInsert', Array)
+#2 {main}
+  thrown in /home/uskcorpi/public_html/datamanagement/layout/connection/GlobalCrud.php on line 64
+[13-Mar-2015 16:33:33 Asia/Kolkata] PHP Fatal error:  Uncaught exception 'PDOException' with message 'SQLSTATE[42S22]: Column not found: 1054 Unknown column 'feeStatus' in 'field list'' in /home/uskcorpi/public_html/datamanagement/layout/connection/GlobalCrud.php:64
+Stack trace:
+#0 /home/uskcorpi/public_html/datamanagement/layout/connection/GlobalCrud.php(64): PDOStatement->execute(Array)
+#1 /home/uskcorpi/public_html/datamanagement/layout/trainee/create.php(72): GlobalCrud::setData('traineeInsert', Array)
+#2 {main}
+  thrown in /home/uskcorpi/public_html/datamanagement/layout/connection/GlobalCrud.php on line 64
+[13-Mar-2015 16:36:52 Asia/Kolkata] PHP Fatal error:  Uncaught exception 'PDOException' with message 'SQLSTATE[42S22]: Column not found: 1054 Unknown column 'feeStatus' in 'field list'' in /home/uskcorpi/public_html/datamanagement/layout/connection/GlobalCrud.php:64
+Stack trace:
+#0 /home/uskcorpi/public_html/datamanagement/layout/connection/GlobalCrud.php(64): PDOStatement->execute(Array)
+#1 /home/uskcorpi/public_html/datamanagement/layout/trainee/create.php(72): GlobalCrud::setData('traineeInsert', Array)
+#2 {main}
+  thrown in /home/uskcorpi/public_html/datamanagement/layout/connection/GlobalCrud.php on line 64
+[13-Mar-2015 18:46:07 Asia/Kolkata] PHP Fatal error:  Uncaught exception 'PDOException' with message 'SQLSTATE[42S22]: Column not found: 1054 Unknown column 'feeStatus' in 'field list'' in /home/uskcorpi/public_html/datamanagement/layout/connection/GlobalCrud.php:64
+Stack trace:
+#0 /home/uskcorpi/public_html/datamanagement/layout/connection/GlobalCrud.php(64): PDOStatement->execute(Array)
+#1 /home/uskcorpi/public_html/datamanagement/layout/trainee/create.php(72): GlobalCrud::setData('traineeInsert', Array)
+#2 {main}
+  thrown in /home/uskcorpi/public_html/datamanagement/layout/connection/GlobalCrud.php on line 64

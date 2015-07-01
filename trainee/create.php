@@ -232,11 +232,11 @@ function validate(){
 						</select>
 					</div>
 				</div>
-				
+				<?php $role = $_SESSION ['role'];?>
 				<div class="control-group">
 					<label class="control-label">Fee Status</label>
 					<div class="controls">
-						<select name="feeStatus" type="text">
+						<select name="feeStatus" id="selectInTrainee" onchange="checkTheUserStatus('<?php echo $role?>','selectInTrainee','create')" >
 							<option value="">Select</option>
 							<?php foreach ($feeStatusConstants as $feeStatusConstant): ?>
 							<option value="<?=$feeStatusConstant?>">
@@ -244,6 +244,7 @@ function validate(){
 								<?php endforeach ?>
 							</option>
 						</select>
+						<span id="userBasedAllowedAndNotAllowed" style="display: none;color:red;">This seleted value is not allowed for this login user</span>
 					</div>
 				</div>
 				
@@ -284,7 +285,7 @@ function validate(){
 
 				<div class="form-actions">
 					<button type="submit" class="btn btn-success" id="create">Create</button>
-					<a class="btn" href="index.php">Back</a>
+					<!-- <a class="btn" href="index.php">Back</a> -->
 				</div>
 			</form>
 		</div>

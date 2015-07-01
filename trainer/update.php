@@ -3,6 +3,7 @@ $path = $_SERVER ['DOCUMENT_ROOT'];
 $path .= "/layout/connection/GlobalCrud.php";
 include_once ($path);
 $technologyData = GlobalCrud::getData ( 'technologySelect' );
+$employeeData = GlobalCrud::getData ( 'employeeSelect' );
 $id = null;
 date_default_timezone_set("Asia/Kolkata");
 if (! empty ( $_GET ['id'] )) {
@@ -16,6 +17,7 @@ if (null == $id) {
 if (! empty ( $_POST )) {
 	$name = $_POST ['name'];
 	$technologyid = $_POST ['supportedby'];
+	$referredbyid = $_POST ['referredby'];
 	$phone = $_POST ['phone'];
 	$email = $_POST ['email'];
 	// $createdDate = $_POST['createdDate'];
@@ -46,6 +48,7 @@ if (! empty ( $_POST )) {
 		$sql = "trainerUpdate";
 		$sqlValuesForUpdate = array (
 				$name,
+				$referredbyid,
 				$technologyid,
 				$phone,
 				$email,
@@ -67,6 +70,7 @@ else {
 	$data = GlobalCrud::selectById ( $sql, $sqlValues );
 	$name = $data ['name'];
 	$technologyid = $data ['technology_id'];
+	$referredbyid= $data ['referred_by'];
 	$phone = $data ['phone'];
 	$email = $data ['email'];
 	$description = $data ['description'];
@@ -149,6 +153,34 @@ function validate(){
 						</div>
 					</div>
 				</div>
+				
+				
+				
+				<div class="control-group">
+					<div class="form-group required">
+						<label class="control-label">Referred By</label>
+						<div class="controls">
+							<select name="referredby" id="referredbyid">
+								<option value="0">Select a employee</option>
+							<?php foreach ($employeeData as $row): ?>
+							<option <?php if($row['id'] == $referredbyid) {  ?>
+									selected="selected" value="<?=$row['id']?>">
+								<?php }else {?>
+								value="<?=$row['id']?>">
+								<?php
+								}
+								echo $row ['name'];
+								?>
+							</option>
+
+							<?php endforeach ?>
+							</option>
+							</select><span id="referredbyidError" style="color: red"></span>
+						</div>
+					</div>
+				</div>
+				
+				
 
 				<div class="control-group">
 					<div class="form-group required">
