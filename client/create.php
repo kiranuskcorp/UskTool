@@ -2,16 +2,17 @@
 $path = $_SERVER ['DOCUMENT_ROOT'];
 $path .= "/layout/connection/GlobalCrud.php";
 include_once ($path);
-
+date_default_timezone_set ( "Asia/Kolkata" );
 if (! empty ( $_POST )) {
 	
 	// keep track post values
 	$name = $_POST ['name'];
 	$address = $_POST ['address'];
 	$createdDate = date ( "Y/m/d" );
-	$poc = $_POST ['poc'][0];
-	$email = $_POST ['email'][0];
-	$phone = $_POST ['phone'][0];
+	$poc = $_POST ['poc'] [0];
+	$email = $_POST ['email'] [0];
+	$phone = $_POST ['phone'] [0];
+	$designation = $_POST ['designation'] [0];
 	$description = $_POST ['description'];
 	
 	// validate input
@@ -30,6 +31,10 @@ if (! empty ( $_POST )) {
 	if (empty ( $email )) {
 		$valid = false;
 	}
+	if (empty ( $designation )) {
+		$valid = false;
+	}
+	
 	if (empty ( $phone )) {
 		$valid = false;
 	}
@@ -47,17 +52,19 @@ if (! empty ( $_POST )) {
 		);
 		$clientid = GlobalCrud::setData ( $sql, $sqlValues );
 		$sql = "contactInsert";
-		for($i = 0; $i < count($_POST['poc']) ; $i ++) {
-			$poc = $_POST ['poc'][$i];
-			$email = $_POST ['email'][$i];
-			$phone = $_POST ['phone'][$i];
+		for($i = 0; $i < count ( $_POST ['poc'] ); $i ++) {
+			$poc = $_POST ['poc'] [$i];
+			$email = $_POST ['email'] [$i];
+			$phone = $_POST ['phone'] [$i];
+			$designation = $_POST ['designation'] [$i];
 			$sqlValues = array (
 					$clientid,
 					$poc,
 					$email,
 					$phone,
 					$createdDate,
-					$description 
+					$description,
+					$designation 
 			);
 			GlobalCrud::setData ( $sql, $sqlValues );
 		}
@@ -135,30 +142,36 @@ if (! empty ( $_POST )) {
 					</div>
 					<div class="form-group required">
 
-						
+
 						<table id="tab_logic">
 
 							<thead>
 								<tr>
-									<th class="text-center">Name</th>
-									<th class="text-center">Email</th>
-									<th class="text-center">Phone</th>
+									<th class="text-center"><label class="control-label">Name</label></th>
+									<th class="text-center"><label class="control-label">Email</label></th>
+									<th class="text-center"><label class="control-label">Designation</label></th>
+									<th class="text-center"><label class="control-label">Phone</label></th>
 									<th class="text-center">Add/Remove</th>
 								</tr>
 							</thead>
-							<tbody> 
+							<tbody>
 								<tr>
 									<td><input type="text" name='poc[]' placeholder='poc'
 										value="<?php echo !empty($poc)?$poc:'';?>"
 										class="form-control" required="required" /></td>
-									<td><input type="text" name='email[]' placeholder='email'
+									<td><input type="email" name='email[]' placeholder='email'
 										value="<?php echo !empty($email)?$email:'';?>"
 										class="form-control" required="required" /></td>
-									<td><input type="text" name='phone[]' placeholder='phone'
-										value="<?php echo !empty($phone)?$phone:'';?>"
+
+									<td><input type="text" name='designation[]'
+										placeholder='designation'
+										value="<?php echo !empty($designation)?$designation:'';?>"
 										class="form-control" required="required" /></td>
-										<td><a id="add_row">&nbsp;<i
-							class="fa fa-plus-square"></i></a></td>
+									<td><input type="text" name='phone[]' placeholder='phone'
+										maxlength="15" value="<?php echo !empty($phone)?$phone:'';?>"
+										onkeypress='return event.charCode >= 48 && event.charCode <= 57 || event.charCode == 43 || event.charCode == 45'
+										class="form-control" required="required" /></td>
+									<td><a id="add_row">&nbsp;<i class="fa fa-plus-square"></i></a></td>
 								</tr>
 								<tr id='addr1'></tr>
 							</tbody>

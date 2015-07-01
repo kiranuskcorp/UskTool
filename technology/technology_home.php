@@ -10,11 +10,10 @@
 </script></head>
 <body>
     <div  class="container-fluid">
-		<div class="row">
-    			<h3>Technology</h3>
-    		</div>
+		
 			<div class="row">
 				<p>
+				<b class="labelData">Technology</b>
 					<a href="?content=2" class = "btn btn-default"><i class="fa fa-plus-square"></i>&nbsp;Add</a>
 					<a href="./Excels/technologyexcel.php" class="btn btn-default btn-lg " role="button" ><i class="fa fa-file-excel-o"></i> export</a>
 				</p>
@@ -37,7 +36,7 @@
 					   $data = GlobalCrud::getData('technologySelect');
 					   foreach ($data as $row) {
 						   		echo '<tr>';
-							   	echo '<td>'. $row['name'] . '</td>';
+							   	 	echo '<td><a  href="?content=4&technology='.$row['id'].'">'. $row['name'] . '</a></td>';
 							   	echo '<td nowrap="nowrap">';
 							   	echo '<a href="#" data-toggle="tooltip" title="'. $row['description'] . '"> <i class="fa fa-caret-square-o-up"></i></a>';
 							   	echo '<a href="?content=3&id='.$row['id'].'"> <i class="fa fa-pencil-square"></i></a>';

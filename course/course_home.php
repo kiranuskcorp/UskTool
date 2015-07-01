@@ -4,11 +4,10 @@
 
 <body>
     <div  class="container-fluid">
-		<div class="row">
-    			<h3>Course</h3>
-    		</div>
+	
 			<div class="row">
 				<p>
+				<b class="labelData">Course</b>
 					<a href="?content=26" class = "btn btn-default"><i class="fa fa-plus-square"></i>&nbsp;Add</a>
 					<a href="./Excels/courseexcel.php" class="btn btn-default btn-lg " role="button" ><i class="fa fa-file-excel-o"></i> export</a>
 				</p>
@@ -31,6 +30,8 @@
 		               $path = $_SERVER['DOCUMENT_ROOT'];
    					   $path .= "/layout/connection/GlobalCrud.php";
    					   include_once($path);
+   					   date_default_timezone_set("Asia/Kolkata");
+   					   $count = 0;
 					   $data = GlobalCrud::getData('courseSelect');
 					   foreach ($data as $row) {
 						   		echo '<tr>';
@@ -43,6 +44,7 @@
 							   	echo '<a href="#"  onClick=delFromHome('.$row['id'].',"courseDelete") > <i class="fa fa-trash"></i></a>';//'?content=16&id='.$row['id'].'
 							   	echo '</td>';
 							   	echo '</tr>';
+							   	$count++;
 					   }
 
 					  function deleteRecord($idValue) {
@@ -56,6 +58,8 @@
 						    deleteRecord($_GET['id']);
 						  } 
 					  ?>
+					  <br> Total Number Of Courses:
+					<?php echo $count;?>
 				      </tbody>
 	            </table>
 	            <label id="NoRowsAvailable" style="display: none">  No result matched for search criteria	</label>

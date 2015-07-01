@@ -8,7 +8,7 @@ $employeeData = GlobalCrud::getData('employeeSelect');
 $timeConstants = explode(',', GlobalCrud::getConstants("timeConstants"));
 $supportConstants = explode(',', GlobalCrud::getConstants("supportConstants"));
 //$clientData = GlobalCrud::getData('clientSelect');
-
+date_default_timezone_set("Asia/Kolkata");
 if ( !empty($_POST)) {
 
 	// keep track post values

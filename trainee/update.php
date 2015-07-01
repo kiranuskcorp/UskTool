@@ -7,7 +7,9 @@ $selecteddataTechnology = GlobalCrud::getData('technologySelect');
 $selecteddataClient =  GlobalCrud::getData('clientSelect');
 $selecteddataBatch =  GlobalCrud::getData('batchSelect');
 $constants = explode ( ',', GlobalCrud::getConstants ( "timezoneConstants" ) );
+$feeStatusConstants = explode(',', GlobalCrud::getConstants("feeStatusConstant"));
 $id = null;
+date_default_timezone_set("Asia/Kolkata");
 if ( !empty($_GET['id'])) {
 	$id = $_REQUEST['id'];
 }
@@ -29,6 +31,7 @@ if ( !empty($_POST)) {
 	$updatedDate = date("Y/m/d");
 	$description = $_POST['description'];
 	$phone = $_POST['phone'];
+	$feeStatus = $_POST['feeStatus'];
 	$technologyid = $_POST['technologyid'];
 
 
@@ -62,7 +65,7 @@ if ( !empty($_POST)) {
 	// update data
 	if ($valid) {
 		$sql = "traineeUpdate";
-		$sqlValuesForUpdate = array($name,$email,$alternatephone,$clientid,$skypeid,$timezone,$batchid,$updatedDate,$description,$phone,$technologyid,$id);
+		$sqlValuesForUpdate = array($name,$email,$alternatephone,$clientid,$skypeid,$timezone,$batchid,$updatedDate,$description,$phone,$feeStatus,$technologyid,$id);
 		GlobalCrud::update($sql,$sqlValuesForUpdate);
 
 		header("Location:../?content=37");
@@ -82,6 +85,7 @@ else {
 	$batchid = $data['batch_id'];
 	$description = $data['description'];
 	$phone = $data['phone'];
+	$feeStatus = $data['trainee_fee_status'];
 	$technologyid = $data['technology_id'];
 }
 ?>
@@ -157,8 +161,8 @@ function validate(){
 					<div class="form-group required">
 						<label class="control-label">Phone</label>
 						<div class="controls">
-								<input type="tel" name="phone" maxlength="10" placeholder="phone" 
-								onkeypress='return event.charCode >= 48 && event.charCode <= 57' 
+								<input type="tel" name="phone" maxlength="15" placeholder="phone" 
+								onkeypress='return event.charCode >= 48 && event.charCode <= 57 || event.charCode == 43 || event.charCode == 45' 
 								value="<?php echo !empty($phone)?$phone:'';?>" required>
 						</div>
 					</div>
@@ -167,8 +171,8 @@ function validate(){
 				<div class="control-group">
 						<label class="control-label">Alternate Phone</label>
 						<div class="controls">
-							<input type="tel" name="alternatephone" maxlength="10" placeholder="alternatephone" 
-								onkeypress='return event.charCode >= 48 && event.charCode <= 57' 
+							<input type="tel" name="alternatephone" maxlength="15" placeholder="alternatephone" 
+								onkeypress='return event.charCode >= 48 && event.charCode <= 57 || event.charCode == 43 || event.charCode == 45' 
 								value="<?php echo !empty($alternatephone)?$alternatephone:'';?>" >
 						</div>
 				</div>
@@ -261,6 +265,27 @@ else {
 				</div>
 
 
+				
+				<div class="control-group">
+					<label class="control-label">Status</label>
+					<div class="controls">
+						<select name="feeStatus" type="text">
+							<option value="">Select</option>
+							<?php foreach ($feeStatusConstants as $feeStatusConstant): ?>
+							<option <?php if($feeStatusConstant == $feeStatus) {?>
+								selected="selected" value=" <?=$feeStatusConstant?>">
+								<?php }else {?>
+								value="<?=$feeStatusConstant?>">
+								<?php }
+								echo $feeStatusConstant;
+								?>
+							</option>
+
+							<?php endforeach ?>
+							</option>
+						</select>
+					</div>
+				</div>
 				
 
 

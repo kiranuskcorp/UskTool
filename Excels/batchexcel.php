@@ -3,9 +3,10 @@ $path = $_SERVER ['DOCUMENT_ROOT'];
 $path .= "/layout/connection/GlobalCrud.php";
 include_once ($path);
 $data = GlobalCrud::getData ( 'batchSelect' );
-
+date_default_timezone_set("Asia/Kolkata");
+$dateValue1 = date('Y-M-d');
 // file name for download
-$filename = "batch_" . date ( 'Ymd' ) . ".xls";
+$filename = "batch_" . $dateValue1 . ".xls";
 
 header ( "Content-Disposition: attachment; filename=\"$filename\"" );
 header ( "Content-Type: application/vnd.ms-excel" );

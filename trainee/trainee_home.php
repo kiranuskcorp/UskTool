@@ -3,11 +3,10 @@
 <body>
 
 	<div class="container-fluid">
-		<div class="row">
-			<h3>Trainee</h3>
-		</div>
+		
 		<div class="row">
 			<p>
+			<b class="labelData">Trainee</b>
 				<a href="?content=38" class="btn btn-default"><i
 					class="fa fa-plus-square"></i>&nbsp;Add</a> <a
 					href="./Excels/traineeexcel.php" class="btn btn-default btn-lg "
@@ -28,6 +27,7 @@
 						<th>Phone</th>
 						<th>Technology</th>
 						<th>Batch</th>
+						<th>Fee Status</th>
 						<th>Client</th>
 						<th>Skype Id</th>
 						<th>Tz</th>
@@ -42,7 +42,18 @@
 					$path .= "/layout/connection/GlobalCrud.php";
 					include_once($path);
 					$delete="traineeDelete";
-					$data = GlobalCrud::getData('traineeSelect');
+					
+					$data = null;
+					if (isset($_GET['BatchId'])) {
+						$data = GlobalCrud::getAllRecordsBasedOnId('traineeSelectByBatchId',array($_GET['BatchId']));
+					}else{
+					
+						$data = GlobalCrud::getData('traineeSelect');
+					}
+					
+					
+					
+					$count = 0;
 					foreach ($data as $row) {
 						$emailTd = '<td></td>';
 						if(!empty($row['email'])){
@@ -66,6 +77,7 @@
 						echo $phoneTd;
 						echo '<td>'. $row['technology_name'] . '</td>';
 						echo $batchTd;
+						echo '<td>'. $row['trainee_fee_status'] . '</td>';
 						echo '<td>'. $row['client_name'] . '</td>';
 						echo '<td>'. $row['skype_id'] . '</td>';
 						echo '<td>'. $row['timezone'] . '</td>';
@@ -76,20 +88,13 @@
 						echo '<a href="#"  onClick=delFromHome('.$row['id'].',"traineeDelete") > <i class="fa fa-trash"></i></a>';//'?content=16&id='.$row['id'].'
 						echo '</td>';
 						echo '</tr>';
+						$count ++;
 					}
 
-					/* function deleteRecord($idValue) {
-									$sql = "traineeDelete";
-									$sqlValues = $idValue;
-									GlobalCrud::delete($sql,$sqlValues);
-									header("Location:./?content=37");
-								}
-
-						  if (isset($_GET['id'])) {
-						    deleteRecord($_GET['id']);
-						    header("Refresh: 0");
-						  } */
+					
 						  ?>
+						  <br> Total Number Of Trainees:
+					<?php echo $count;?>
 				</tbody>
 			</table>
 			<label id="NoRowsAvailable" style="display: none">  No result matched for search criteria	</label>

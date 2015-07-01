@@ -41,6 +41,7 @@
 	padding: 5px;
 	text-align: left;
 	
+	
 }
 
 .footable>tbody>tr:last-child>td:first-child {
@@ -60,7 +61,7 @@
 }
 
 .footable>thead>tr {
-    background-color: #414141;
+    background-color: #45aed0;
     color: white;
 }
 .footable>tbody>tr:nth-child(even) {background: #CCC}

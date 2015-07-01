@@ -6,7 +6,8 @@ $dataTechnology = GlobalCrud::getData ( 'technologySelect' );
 $dataClient = GlobalCrud::getData ( 'clientSelect' );
 $dataBatch = GlobalCrud::getData ( 'batchSelect' );
 $constants = explode ( ',', GlobalCrud::getConstants ( "timezoneConstants" ) );
-
+$feeStatusConstants = explode(',', GlobalCrud::getConstants("supportConstants"));
+date_default_timezone_set("Asia/Kolkata");
 if (! empty ( $_POST )) {
 	// keep track post values
 	$name = $_POST ['name'];
@@ -21,6 +22,7 @@ if (! empty ( $_POST )) {
 	$description = $_POST ['description'];
 	$phone = $_POST ['phone'];
 	$technologyid = $_POST ['technologyid'];
+	$feeStatus = $_POST['feeStatus'];
 
 	// validate input
 	$valid = true;
@@ -64,6 +66,7 @@ if (! empty ( $_POST )) {
 				$createdDate,
 				$description,
 				$phone,
+				$feeStatus,
 				$technologyid
 		);
 		GlobalCrud::setData ( $sql, $sqlValues );
@@ -153,8 +156,8 @@ function validate(){
 					<div class="form-group required">
 						<label class="control-label">Phone</label>
 						<div class="controls">
-								<input type="tel" name="phone" maxlength="10" placeholder="phone" 
-								onkeypress='return event.charCode >= 48 && event.charCode <= 57' 
+								<input type="tel" name="phone" maxlength="15" placeholder="phone" 
+								onkeypress='return event.charCode >= 48 && event.charCode <= 57 || event.charCode == 43 || event.charCode == 45' 
 								value="<?php echo !empty($phone)?$phone:'';?>" required>
 						</div>
 					</div>
@@ -163,8 +166,8 @@ function validate(){
 				<div class="control-group">
 						<label class="control-label">Alternate Phone</label>
 						<div class="controls">
-							<input type="tel" name="alternatephone" maxlength="10" placeholder="alternatephone" 
-								onkeypress='return event.charCode >= 48 && event.charCode <= 57' 
+							<input type="tel" name="alternatephone" maxlength="15" placeholder="alternatephone" 
+								onkeypress='return event.charCode >= 48 && event.charCode <= 57 || event.charCode == 43 || event.charCode == 45' 
 								value="<?php echo !empty($alternatephone)?$alternatephone:'';?>" >
 						</div>
 					
@@ -229,7 +232,21 @@ function validate(){
 						</select>
 					</div>
 				</div>
-
+				
+				<div class="control-group">
+					<label class="control-label">Fee Status</label>
+					<div class="controls">
+						<select name="feeStatus" type="text">
+							<option value="">Select</option>
+							<?php foreach ($feeStatusConstants as $feeStatusConstant): ?>
+							<option value="<?=$feeStatusConstant?>">
+								<?php	echo $feeStatusConstant;?>
+								<?php endforeach ?>
+							</option>
+						</select>
+					</div>
+				</div>
+				
 
 				
 

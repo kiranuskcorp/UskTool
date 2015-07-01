@@ -8,7 +8,7 @@ $employeeData = GlobalCrud::getData('employeeSelect');
 $clientData = GlobalCrud::getData('clientSelect');
 $timeConstants = explode(',', GlobalCrud::getConstants("timeConstants"));
 $interviewconstants = explode(',', GlobalCrud::getConstants("interviewconstants"));
-
+date_default_timezone_set("Asia/Kolkata");
 $id = null;
 if ( !empty($_GET['id'])) {
 	$id = $_REQUEST['id'];
@@ -212,11 +212,11 @@ function validate(){
 					</div>
 				</div>
 
-
+			<?php $role = $_SESSION ['role'];?>
 				<div class="control-group">
 					<label class="control-label">Status</label>
 					<div class="controls">
-						<select name="status" type="text">
+						<select name="status" id="selectInInterview" onchange="checkTheUserStatus('<?php echo $role?>','selectInInterview','interviewUpdate')">
 							<option value="0">Select</option>
 							<?php foreach ($interviewconstants as $interviewconstant): ?>
 							<option <?php if($interviewconstant == $status) {  ?> selected="selected"
@@ -230,7 +230,7 @@ function validate(){
 								<?php endforeach ?>
 							
 						</select>
-
+						 <span id="userBasedAllowedAndNotAllowed" style="display: none;color:red;">This seleted value is not allowed for this login user</span>
 					</div>
 				</div>
 
@@ -270,8 +270,8 @@ function validate(){
 				</div>
 
 				<div class="form-actions">
-					<button type="submit" class="btn btn-success">Update</button>
-					<a class="btn" href="index.php">Back</a>
+					<button type="submit" class="btn btn-success" id="interviewUpdate" >Update</button>
+					<!-- <a class="btn" href="index.php">Back</a> -->
 				</div>
 			</form>
 		</div>

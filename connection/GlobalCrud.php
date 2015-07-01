@@ -19,6 +19,10 @@ if ($operation == "duplicate"){
 	GlobalCrud::duplicate($sql);
 }
 
+if ($operation == "email"){
+	GlobalCrud::getEmail($sql);
+}
+
 class GlobalCrud {
 	public static function getData($value) {
 		$pdo = Database::connect ();
@@ -27,6 +31,8 @@ class GlobalCrud {
 		return $data;
 		Database::disconnect ();
 	}
+	
+	
 	
 	public static function duplicate($sql) {
 	
@@ -88,10 +94,40 @@ public static function setData($value, $sqlValues) {
 		$sql = SqlConstants::$allSelect [$value];
 		$q = $pdo->prepare ( $sql );
 		$q->execute ( $sqlValues );
+		$q->closeCursor();
 		$data = $q->fetchAll ( PDO::FETCH_ASSOC );
 		return $data;
 		Database::disconnect ();
 	}
+	public static function getEmail($sql) {
+	
+		$pdo = Database::connect ();
+		$sql = $sql;
+		$data = $pdo->query ( $sql );
+		foreach ($data as $row) {
+			echo $row['email'];
+			echo ',';
+		}
+		return $data;
+		Database::disconnect ();
+	}
+	public static function sendEmail($toEmail,$subject,$body){
+		$headers = 'From: gangonekiran@gmail.com' . "\r\n" .
+				//'Reply-To: kiran.uskcorp@gmail.com' . "\r\n" .
+				"CC: tsreenath1985@gmail.com".  "\r\n" .
+				'X-Mailer: PHP/' . phpversion();
+		
+		//$toEmail = "kiran.uskcorp@gmail.com";
+		//$subject = "Subject Line Here";
+		//$body = "Body of email goes here";
+		
+		if(mail($toEmail , $subject, $body, $headers))
+			echo "email sent";
+			else
+			echo "email *not* sent";
+	}
+	
+	
 	
 
 }

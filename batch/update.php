@@ -2,7 +2,7 @@
 $path = $_SERVER ['DOCUMENT_ROOT'];
 $path .= "/layout/connection/GlobalCrud.php";
 include_once ($path);
-
+date_default_timezone_set("Asia/Kolkata");
 $selecteddataTechnology = GlobalCrud::getData ( 'technologySelect' );
 $selecteddataTrainer = GlobalCrud::getData ( 'trainerSelect' );
 $constants = explode ( ',', GlobalCrud::getConstants ( "timeConstants" ) );

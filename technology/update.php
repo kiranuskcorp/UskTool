@@ -2,7 +2,7 @@
 $path = $_SERVER ['DOCUMENT_ROOT'];
 $path .= "/layout/connection/GlobalCrud.php";
 include_once ($path);
-
+date_default_timezone_set("Asia/Kolkata");
 $id = null;
 if (! empty ( $_GET ['id'] )) {
 	$id = $_REQUEST ['id'];

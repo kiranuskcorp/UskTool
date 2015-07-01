@@ -17,6 +17,8 @@
 <script
 	src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"
 	type="text/javascript"></script>
+
+<script src="./js/jquery.js" type="text/javascript"></script>
 <script src="./js/foot/footable-0.1.js" type="text/javascript"></script>
 <script src="./js/foot/footable.sortable.js" type="text/javascript"></script>
 <script src="./js/foot/footable.filter.js" type="text/javascript"></script>
@@ -30,10 +32,10 @@
     });
 
     $(document).ready(function(){
-        var i=1;
+    	var rowCount = $('#myTable tr').length - 1;
+    	var i=1;
        $("#add_row").click(function(){
-        $('#addr'+i).html("<td><input name='contactId[]' type='hidden' value='0'/><input name='poc[]' type='text' placeholder='poc' class='form-control input-md'  /> </td><td><input  name='email[]' type='text' placeholder='email'  class='form-control input-md'></td><td><input  name='phone[]' type='text' placeholder='phone'  class='form-control input-md'></td><td>&nbsp;<a  onClick='delRow(0)'><i class='fa fa-minus-square'></i></a></td>");
-
+        $('#addr'+i).html("<td><input name='contactId[]' type='hidden' value='0'/><input name='poc[]' type='text' placeholder='poc' class='form-control input-md'  /> </td><td><input  name='email[]' type='email' placeholder='email'  class='form-control input-md'></td><td><input  name='designation[]' type='text' placeholder='designation'  class='form-control input-md'></td><td><input  name='phone[]' type='text' placeholder='phone' onkeypress='return event.charCode >= 48 &amp;&amp; event.charCode <= 57' class='form-control input-md'></td><td>&nbsp;<a  onClick='delRow(0)'><i class='fa fa-minus-square'></i></a></td>");
         $('#tab_logic').append('<tr id="addr'+(i+1)+'"></tr>');
         i++; 
     });
@@ -98,7 +100,79 @@
  		
      	   	} 
      }
-    
+
+
+     function validateUserCreds(tablename) {
+      	var name = document.getElementById("name").value;
+          if(name.length>=3){
+          	$.ajax({
+          		  url: '/layout/connection/GlobalCrud.php',
+          		  type: 'POST',
+          		  data: {operation: "duplicateUser", sql: "select * from "+tablename+" where username like  '"+name+"%'" , sqlValues:""},
+          		  success: function(response) {
+          		  	var splitted = response.split(",", 1);
+	          		  var result = MatchIgnoreCase(name,splitted+"");
+          		  	$('#createMessage').css("display", "none");
+          			if(result){
+          				
+          		  		$('#create').hide();
+          		  		$('#update').hide();
+          		  		$('#createMessage').css("display", "block");
+          		  	}
+          			else{
+          				$('#create').show();
+          				$('#update').show();
+          				$('#createMessage').css("display", "none");
+              			}
+          		  },
+          		  error: function(e) {
+              		  alert("error");
+          		  }
+          		});
+  		
+      	   	} 
+      }
+
+     function checkPasswordAndConform(){
+
+         var pass = $("#password").val();
+         var cpass = $("#conformPassword").val();
+         if(pass === cpass){
+        		$('#create').show();
+  				$('#update').show();
+        	 $('#createCMessage').css("display", "none");
+         
+             
+         }else{
+        	 $('#create').hide();
+		  		$('#update').hide();
+        	 $('#createCMessage').css("display", "block");
+             
+             
+         }
+     }
+     
+
+     function getTheEmail(tablename) {
+      	var name = document.getElementById("assignedtoid").value;
+        
+          	$.ajax({
+          		  url: '/layout/connection/GlobalCrud.php',
+          		  type: 'POST',
+          		  data: {operation: "email", sql: "select * from "+tablename+" where id = '"+name+"'" , sqlValues:""},
+          		  success: function(response) {
+          		  	var splitted = response.split(",", 1);
+					
+					document.getElementById("employeeEmail").value = splitted;
+          		//  var result = MatchIgnoreCase(name,splitted+"");
+          		  	
+          		  },
+          		  error: function(e) {
+          		  }
+          		});
+  		
+      	   
+      }
 
     function delFromHome(id,sqlCon)
     {
@@ -127,303 +201,426 @@
     	
     }
 
+
+    $(function() {
+        $('a').click(function() {
+           
+        });
+    });
     
+    function toogle(id) {
+       		$('.RowToClick' + id).toggle(300);
+    		//$('.RowToClick' + id+'e').toggleClass('fa-plus-circle fa-minus-circle');
+       		$('.RowToClick' + id+'e').find('i').toggleClass('fa-minus-circle fa-plus-circle');
+       		//$('#'+id).show();
+	}
+
+    
+    function changeTheClass(){
+    	
+    	  $("#myTable tr.RowToClick").toggle(self.checked);  
+    	 
+    	   $('#checkboxID').click(function() {
+    		   if(this.checked){
+    			   $("#mainCountcheck").html(document.getElementById("myTable").rows.length);
+    		  }else{
+    			  $("#mainCountcheck").html(parseInt(document.getElementById("myTable").rows.length)-parseInt($("#mainCountcheck2").html())-parseInt(1));
+    		  }
+    		}); 
+      		
+    	} 
+
+ function changeTheClass1(){
+	  $("#myTable tr.RowToClick2").toggle(self.checked);  
+    } 
+
+
+ function checkTheUserStatus(user,elementId,buttonId){
+	//console.log(user);
+		if(user == 'User'){
+			var selectedvalue = $("#"+elementId).val();
+			if(selectedvalue.length == 20 || selectedvalue.length == 10){
+				$("#userBasedAllowedAndNotAllowed").css("display","block");
+				$("#"+buttonId).css("display","none");
+				
+				}
+		/* 	if(selectedvalue.length == 10){
+				$("#userBasedAllowedAndNotAllowed").css("display","block");
+				$("#"+buttonId).css("display","none");
+			}
+		 */	if(selectedvalue.length != 10 && selectedvalue.length != 20 ){
+				//console.log("10");
+				$("#userBasedAllowedAndNotAllowed").css("display","none");
+				$("#"+buttonId).css("display","block");
+		}
+		}
+		
+ }
+function disableEditButton(role){
+
+	if(role == 'View'){
+ 	$(".fa-pencil-square" ).css( "display", "none" );
+ 	$(".fa-trash" ).css( "display", "none" );
+	}
+}
   </script>
 <style type="text/css">
-.mainHeader{
-height: 180px;
-}
-#nav{
-border : 1px solid black;
-}
-.navigation {
-	width: auto;
-	color: #333;
-	padding: auto;
-	
-}
-.navigation li a:visited {
-	text-decoration: none
+.mainHeader {
+	height: 100px;
 }
 
-.navigation li a:hover {
-	background: #3498db;
-	position: relative;
-	color: #fff;
+#content {
+	padding-top: 10px;
 }
+
+#nav {
+	width: 100%;
+	/* border : 1px solid black;  */
+	background-color: #45aed0;
+}
+
+.navigation {
+	width: 100%;
+	height: 40px;
+	padding: auto;
+}
+
+.navigation li a {
+	color: white;
+	/* background-color: #45aed0; */
+	width: 100%;
+}
+/* .navigation li a:visited {
+	background-color: white;
+} */
+.navigation li a:hover {
+	background-color: black;
+}
+
 .required label:after {
 	color: #e32;
 	content: ' *';
 	display: inline;
 }
-.li{
-display:inline;
-text-alig:right;
-list-style: none;
+
+.li {
+	display: inline;
+	text-alig: right;
+	list-style: none;
 }
 
 .form-group.required .control-label:after {
 	content: "*";
 	color: red;
 }
-.left { 
-float:left; 
-width:50%; 
-clear:left; 
-position:relative;
-bottom:-50px;
+
+.left {
+	float: left;
+
+	/* clear: left;
+	position: relative;
+	bottom: -50px; */
 }
 
-.right { 
-float:right; 
-width:50%; 
-clear:right; 
-
+.right {
+	float: right;
+	padding-top: 40px;
+	width: 60%;
+	color: #45aed0;
+	/*clear: right; */
 }
-#DeletedRecord{
-text-align: center;
-font-size: small;
-color: red;
+
+#DeletedRecord {
+	text-align: center;
+	font-size: small;
+	color: red;
+}
+
+#hide {
+	display: none;
+}
+
+.RowToClick {
+	display: none;
+}
+
+.RowToClick2 {
+	display: none;
+}
+
+.RowToClick1 {
+	display: block;
+}
+
+.labelData {
+	font-size: 25px;
+	padding-top: 15px;
+	color: #45aed0;
 }
 </style>
-</head>
-<body>
-<?php 
-error_reporting(0);
-session_start();
-			$username = $_SESSION['username'];
-			if (!empty($username)){
-?>
 <link rel="shortcut icon" href="./img/favicon.ico" type="image/x-icon" />
+</head>
+<?php
+error_reporting ( 0 );
+session_start ();
+$username = $_SESSION ['username'];
+$role = $_SESSION['role'];
+if (! empty ( $username )) {
+	?>
+<body onload="disableEditButton('<?php echo $role?>')">
+
+
 
 
 
 	<!-- Begin Wrapper -->
-	<div class="container-fluid">
-	
-	<div class="mainHeader">
-<ul class="li">
-<li class= "left"><h1>Data Management Tool</h1></li>
-<li class="right"><img src="./img/logo.gif" align="right"  width="250px" height ="180px"/></li>
-</ul>
-</div>
+	<div class="container-fluid" >
+
+		<div class="mainHeader">
+			<ul class="li">
+
+				<li class="left"><img src="./img/logo_blue.gif" /></li>
+				<li class="right"><h1>Data Management Tool</h1></li>
+				
+			</ul>
+		</div>
 		<!-- Begin Header -->
-	<!-- 	<h2>Data Management Tool <img src="./img/logo.gif" align="right" width="100px"></h2> -->
+		<!-- 	<h2>Data Management Tool <img src="./img/logo.gif" align="right" width="100px"></h2> -->
 		<!-- End Header -->
 		<!-- Begin Naviagtion -->
-		
-		<div id="nav"> 
-	<div  class="navigation" >
-			<nav class="navbar navbar-default">
-				<div class="container-fluid">
-					<ul class="nav navbar-nav">
+
+
+
+		<div id="nav">
+			<div class="navigation">
+				<nav class="navbar navbar-default">
+					<div class="container-fluid">
+						<ul class="nav">
 						<?php include 'menu.php';?>
 					</ul>
-				</div>
-			</nav>
+					</div>
+				</nav>
 
+			</div>
 		</div>
-		</div>
-		<div align="right">
+	 <div align="right">
 		
-Welcome to <?php   echo $_SESSION['username'];?><br>
-<a  href="login.php" class="logout">logout</a>
-</div>
+Welcome to <?php  echo $_SESSION['username'];?><br> <a href="login.php"
+				class="logout">logout</a>
+		</div>
 
 		<!-- End Naviagtion -->
 		<!-- Begin Content -->
-		
-		
+
+
 		<div id="content">
 			<?php
+	
+	// $username = $_SESSION['username'];
+	// if (!empty($username)){
+	
+	switch ($_GET ['content']) {
+		/* technology */
+		case 1 :
+			include './technology/technology_home.php';
+			break;
+		case 2 :
+			include './technology/create.php';
+			break;
+		case 3 :
+			include './technology/update.php';
+			break;
+		
+		/* Trainer */
+		case 4 :
+			include './trainer/trainer_home.php';
+			break;
+		case 5 :
+			include './trainer/create.php';
+			break;
+		case 6 :
+			include './trainer/update.php';
+			break;
+		
+		/* Client */
+		case 7 :
+			include './client/client_home.php';
+			break;
+		case 8 :
+			include './client/create.php';
+			break;
+		case 9 :
+			include './client/update.php';
+			break;
+		
+		/* Batch */
+		case 10 :
+			include './batch/batch_home.php';
+			break;
+		case 11 :
+			include './batch/create.php';
+			break;
+		case 12 :
+			include './batch/update.php';
+			break;
+		
+		/* employee */
+		case 13 :
+			include './employee/employee_home.php';
+			break;
+		case 14 :
+			include './employee/create.php';
+			break;
+		case 15 :
+			include './employee/update.php';
+			break;
+		
+		/* Resume */
+		/*
+		 * case 16 :
+		 * include '/resume/resume_home.php';
+		 * break;
+		 * case 17 :
+		 * include '/resume/create.php';
+		 * break;
+		 * case 18 :
+		 * include '/resume/update.php';
+		 * break;
+		 */
+		
+		/* TODO */
+		case 19 :
+			include './todo/todo_home.php';
+			break;
+		case 20 :
+			include './todo/create.php';
+			break;
+		case 21 :
+			include './todo/update.php';
+			break;
+		
+		/* Interview */
+		case 22 :
+			include './interview/interview_home.php';
+			break;
+		case 23 :
+			include './interview/create.php';
+			break;
+		case 24 :
+			include './interview/update.php';
+			break;
+		
+		/* course */
+		case 25 :
+			include './course/course_home.php';
+			break;
+		case 26 :
+			include './course/create.php';
+			break;
+		case 27 :
+			include './course/update.php';
+			break;
+		
+		/* recording */
+		/*
+		 * case 28 :
+		 * include '/recording/recording_home.php';
+		 * break;
+		 * case 29 :
+		 * include '/recording/create.php';
+		 * break;
+		 * case 30 :
+		 * include '/recording/update.php';
+		 * break;
+		 */
+		
+		/* Pay slip */
+		/*
+		 * case 31 :
+		 * include '/payslip/payslip_home.php';
+		 * break;
+		 * case 32 :
+		 * include '/payslip/create.php';
+		 * break;
+		 * case 33 :
+		 * include '/payslip/update.php';
+		 * break;
+		 */
+		
+		/* question */
+		case 34 :
+			include './question/question_home.php';
+			break;
+		case 35 :
+			include './question/create.php';
+			break;
+		case 36 :
+			include './question/update.php';
+			break;
+		
+		/* Trainee */
+		case 37 :
+			include './trainee/trainee_home.php';
+			break;
+		case 38 :
+			include './trainee/create.php';
+			break;
+		case 39 :
+			include './trainee/update.php';
+			break;
+		
+		/* Support */
+		case 40 :
+			include './support/support_home.php';
+			break;
+		case 41 :
+			include './support/create.php';
+			break;
+		case 42 :
+			include './support/update.php';
+			break;
+		
+		case 43 :
+			include './dashboard/dashboard.php';
+			break;
 			
-			//$username = $_SESSION['username'];
-			//if (!empty($username)){
-
-			switch ($_GET ['content']) {
-				/* technology */
-				case 1 :
-					include './technology/technology_home.php';
-					break;
-				case 2 :
-					include './technology/create.php';
-					break;
-				case 3 :
-					include './technology/update.php';
-					break;
-
-					/* Trainer */
-				case 4 :
-					include './trainer/trainer_home.php';
-					break;
-				case 5 :
-					include './trainer/create.php';
-					break;
-				case 6 :
-					include './trainer/update.php';
-					break;
-
-					/* Client */
-				case 7 :
-					include './client/client_home.php';
-					break;
-				case 8 :
-					include './client/create.php';
-					break;
-				case 9 :
-					include './client/update.php';
-					break;
-
-					/* Batch */
-				case 10 :
-					include './batch/batch_home.php';
-					break;
-				case 11 :
-					include './batch/create.php';
-					break;
-				case 12 :
-					include './batch/update.php';
-					break;
-
-					/* employee */
-				case 13 :
-					include './employee/employee_home.php';
-					break;
-				case 14 :
-					include './employee/create.php';
-					break;
-				case 15 :
-					include './employee/update.php';
-					break;
-
-					/* Resume */
-					/*
-					 * case 16 :
-					* include '/resume/resume_home.php';
-					* break;
-					* case 17 :
-					* include '/resume/create.php';
-					* break;
-					* case 18 :
-					* include '/resume/update.php';
-					* break;
-					*/
-
-					/* TODO */
-				case 19 :
-					include './todo/todo_home.php';
-					break;
-				case 20 :
-					include './todo/create.php';
-					break;
-				case 21 :
-					include './todo/update.php';
-					break;
-
-					/* Interview */
-				case 22 :
-					include './interview/interview_home.php';
-					break;
-				case 23 :
-					include './interview/create.php';
-					break;
-				case 24 :
-					include './interview/update.php';
-					break;
-
-					/* course */
-				case 25 :
-					include './course/course_home.php';
-					break;
-				case 26 :
-					include './course/create.php';
-					break;
-				case 27 :
-					include './course/update.php';
-					break;
-
-					/* recording */
-					/*
-					 * case 28 :
-					* include '/recording/recording_home.php';
-					* break;
-					* case 29 :
-					* include '/recording/create.php';
-					* break;
-					* case 30 :
-					* include '/recording/update.php';
-					* break;
-					*/
-
-					/* Pay slip */
-					/*
-					 * case 31 :
-					* include '/payslip/payslip_home.php';
-					* break;
-					* case 32 :
-					* include '/payslip/create.php';
-					* break;
-					* case 33 :
-					* include '/payslip/update.php';
-					* break;
-					*/
-
-					/* question */
-				case 34 :
-					include './question/question_home.php';
-					break;
-				case 35 :
-					include './question/create.php';
-					break;
-				case 36 :
-					include './question/update.php';
-					break;
-
-					/* Trainee */
-				case 37 :
-					include './trainee/trainee_home.php';
-					break;
-				case 38 :
-					include './trainee/create.php';
-					break;
-				case 39 :
-					include './trainee/update.php';
-					break;
-
-					/* Support */
-				case 40 :
-					include './support/support_home.php';
-					break;
-				case 41 :
-					include './support/create.php';
-					break;
-				case 42 :
-					include './support/update.php';
-					break;
-
-					/* client_contact */
-					/* 	case 43 :
-					 include './contact/contact_home.php';
-					break;
-					case 44 :
-					include './contact/create.php';
-					break;
-					case 45 :
-					include './contact/update.php';
-					break;
-
-					case 46 :
-					include './Excels/excels.php';
-					break; */
-
-				default :
-					include './trainee/trainee_home.php';
-					break;
-			}
-			}else {
-				include './login.php';
-			}
-			?>
+			
+			
+			/* User Details */
+			case 44 :
+				include './registration/registration_home.php';
+				break;
+			case 45 :
+				include './registration/create.php';
+				break;
+			case 46 :
+				include './registration/update.php';
+				break;
+		/* client_contact */
+		/*
+		 * case 43 :
+		 * include './contact/contact_home.php';
+		 * break;
+		 * case 44 :
+		 * include './contact/create.php';
+		 * break;
+		 * case 45 :
+		 * include './contact/update.php';
+		 * break;
+		 *
+		 * case 46 :
+		 * include './Excels/excels.php';
+		 * break;
+		 */
+		
+		default :
+			include './dashboard/dashboard.php';
+			break;
+	}
+} else {
+	include './login.php';
+}
+?>
 		</div>
 		<!-- Begin Content -->
 	</div>

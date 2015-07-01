@@ -2,7 +2,7 @@
 $path = $_SERVER ['DOCUMENT_ROOT'];
 $path .= "/layout/connection/GlobalCrud.php";
 include_once ($path);
-
+date_default_timezone_set ( "Asia/Kolkata" );
 $id = null;
 if (! empty ( $_GET ['id'] )) {
 	$id = $_REQUEST ['id'];
@@ -16,7 +16,7 @@ if (! empty ( $_POST )) {
 	
 	$name = $_POST ['name'];
 	$address = $_POST ['address'];
-    $createdDate = date ( "Y/m/d" );
+	$createdDate = date ( "Y/m/d" );
 	$updatedDate = date ( "Y/m/d" );
 	$description = $_POST ['description'];
 	
@@ -41,24 +41,25 @@ if (! empty ( $_POST )) {
 				$id 
 		);
 		GlobalCrud::update ( $sql, $sqlValuesForUpdate );
-		//deleteRecords
-		$deleteRecords = $_POST['deleteRecords'];
-		if($deleteRecords != ''){
-		$myArray = explode(',', $deleteRecords);
-		for ($j = 0; $j < count($myArray);$j++){
-		$sqlContactDelete = "contactDelete";
-		$sqlContactDeleteValues = $myArray[$j];
-		GlobalCrud::delete($sqlContactDelete,$sqlContactDeleteValues);
-		}
+		// deleteRecords
+		$deleteRecords = $_POST ['deleteRecords'];
+		if ($deleteRecords != '') {
+			$myArray = explode ( ',', $deleteRecords );
+			for($j = 0; $j < count ( $myArray ); $j ++) {
+				$sqlContactDelete = "contactDelete";
+				$sqlContactDeleteValues = $myArray [$j];
+				GlobalCrud::delete ( $sqlContactDelete, $sqlContactDeleteValues );
+			}
 		}
 		$sqlContactInsert = "contactInsert";
 		$sqlContactUpdate = "contactUpdate";
 		
-		for($i = 0; $i < count($_POST['poc']) ; $i ++) {
-			$contactId = $_POST['contactId'][$i];
-			$poc = $_POST ['poc'][$i];
-			$email = $_POST ['email'][$i];
-			$phone = $_POST ['phone'][$i];
+		for($i = 0; $i < count ( $_POST ['poc'] ); $i ++) {
+			$contactId = $_POST ['contactId'] [$i];
+			$poc = $_POST ['poc'] [$i];
+			$email = $_POST ['email'] [$i];
+			$phone = $_POST ['phone'] [$i];
+			$designation = $_POST ['designation'] [$i];
 			$clientid = $id;
 			
 			if ($contactId == 0) {
@@ -68,10 +69,11 @@ if (! empty ( $_POST )) {
 						$email,
 						$phone,
 						$createdDate,
-						$description
+						$description,
+						$designation
 				);
 				GlobalCrud::setData ( $sqlContactInsert, $sqlValues );
-			}elseif ($contactId != 0){
+			} elseif ($contactId != 0) {
 				$sqlValuesContactUpdate = array (
 						$clientid,
 						$poc,
@@ -79,7 +81,8 @@ if (! empty ( $_POST )) {
 						$phone,
 						$updatedDate,
 						$description,
-						$contactId
+						$designation,
+						$contactId 
 				);
 				GlobalCrud::update ( $sqlContactUpdate, $sqlValuesContactUpdate );
 			}
@@ -91,14 +94,18 @@ if (! empty ( $_POST )) {
 
 else {
 	$sql = "clientSelectById";
-	$sqlValues = array ($id);
-	$data = GlobalCrud::selectById ($sql,$sqlValues );
+	$sqlValues = array (
+			$id 
+	);
+	$data = GlobalCrud::selectById ( $sql, $sqlValues );
 	$name = $data ['name'];
 	$address = $data ['address'];
 	$description = $data ['description'];
 	
 	$sqlContact = "contactSelectById";
-	$sqlValuesContact = array ($id);
+	$sqlValuesContact = array (
+			$id 
+	);
 	$dataContact = GlobalCrud::getAllRecordsBasedOnId ( $sqlContact, $sqlValuesContact );
 }
 ?>
@@ -131,8 +138,8 @@ else {
 					<label class="control-label">Name</label>
 					<div class="controls">
 						<input name="name" id="name" type="text" placeholder="name"
-								value="<?php echo !empty($name)?$name:'';?>"
-								onkeyup="validateUser('client')" required>
+							value="<?php echo !empty($name)?$name:'';?>"
+							onkeyup="validateUser('client')" required>
 
 					</div>
 				</div>
@@ -167,45 +174,57 @@ else {
 							<thead>
 								<tr>
 									<th class="text-center">Name</th>
-									<th class="text-center">Mail</th>
-									<th class="text-center">Mobile</th>
+									<th class="text-center">Email</th>
+									<th class="text-center">Designation</th>
+									<th class="text-center">Phone</th>
 									<th class="text-center">Add/Remove</th>
 								</tr>
 							</thead>
-						 <tbody>
+							<tbody>
 				<?php
 				$mainValue = 1;
-			foreach ( $dataContact as $row ) {
+				foreach ( $dataContact as $row ) {
 					?>
 				<tr>
 
 									<td><input type="hidden" name='contactId[]'
 										value="<?php echo $row['id']; ?>" class="form-control" /> <input
 										type="text" name='poc[]' placeholder='poc'
-										value="<?php echo $row['poc']; ?>"  class="form-control"
+										value="<?php echo $row['poc']; ?>" class="form-control"
 										required="required" /></td>
-									<td><input type="text" name='email[]' placeholder='email'
+									<td><input type="email" name='email[]' placeholder='email'
 										value="<?php echo $row['email']; ?>" class="form-control"
 										required="required" /></td>
+
+									<td><input type="text" name='designation[]'
+										placeholder='designation'
+										value="<?php echo $row['designation']; ?>"
+										class="form-control" required="required" /></td>
+
+
 									<td><input type="text" name='phone[]' placeholder='phone'
+										maxlength="15"
+										onkeypress='return event.charCode >= 48 && event.charCode <= 57 || event.charCode == 43 || event.charCode == 45'
 										value="<?php echo $row['phone']; ?>" class="form-control"
 										required="required" /></td>
 										<?php if($mainValue == 1){?>
-										<td><a id="add_row">&nbsp;<i
-							class="fa fa-plus-square"></i></a></td>
-							<?php }else{
-							?><td><a onClick="delRow(<?php echo $row['id']; ?>)">&nbsp;<i
-							class="fa fa-minus-square"></i></a></td>
+										<td><a id="add_row">&nbsp;<i class="fa fa-plus-square"></i></a></td>
+							<?php
+					
+} else {
+						?><td><a onClick="delRow(<?php echo $row['id']; ?>)">&nbsp;<i
+											class="fa fa-minus-square"></i></a></td>
 							<?php }?>
 								</tr>
-					<?php 
-			$mainValue++;
-			}?>
+					<?php
+					$mainValue ++;
+				}
+				?>
                     <tr id='addr1'></tr>
-							</tbody> 
+							</tbody>
 						</table>
 
-<input type="hidden" name="deleteRecords" id="deleteRecords"/>
+						<input type="hidden" name="deleteRecords" id="deleteRecords" />
 
 					</div>
 				</div>

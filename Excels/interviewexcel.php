@@ -3,7 +3,7 @@ $path = $_SERVER ['DOCUMENT_ROOT'];
 $path .= "/layout/connection/GlobalCrud.php";
 include_once ($path);
 $data = GlobalCrud::getData ( 'interviewSelect' );
-
+date_default_timezone_set("Asia/Kolkata");
 // file name for download
 $filename = "interview_" . date ( 'Ymd' ) . ".xls";
 

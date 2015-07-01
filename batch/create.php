@@ -6,7 +6,7 @@ $dataTechnology = GlobalCrud::getData ( 'technologySelect' );
 $dataTrainer = GlobalCrud::getData ( 'trainerSelect' );
 $constants = explode ( ',', GlobalCrud::getConstants ( "timeConstants" ) );
 $supportConstants = explode ( ',', GlobalCrud::getConstants ( "supportConstants" ) );
-
+date_default_timezone_set("Asia/Kolkata");
 if (! empty ( $_POST )) {
 	$technologyid = $_POST ['technologyid'];
 	$trainerid = $_POST ['trainerid'];

@@ -28,7 +28,8 @@ if (! empty ( $_POST )) {
 		
 		if ($data ['username'] == $username) {
 			session_start();
-			$_SESSION['username'] = 'test';
+			$_SESSION['username'] = $data ['username'];
+			$_SESSION['role'] = $data ['role'];
 			header ( "Location:./index.php" );
 		} else {
 			header ( "Location:./login.php" );

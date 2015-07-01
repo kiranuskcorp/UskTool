@@ -4,7 +4,7 @@ $path = $_SERVER['DOCUMENT_ROOT'];
 $path .= "/layout/connection/GlobalCrud.php";
 include_once($path);
 $endClientData = GlobalCrud::getData('interviewSelect');
-
+date_default_timezone_set("Asia/Kolkata");
 if ( !empty($_POST)) {
 
 	// keep track post values

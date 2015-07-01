@@ -5,6 +5,7 @@ $path .= "/layout/connection/GlobalCrud.php";
 include_once($path);
 $data = GlobalCrud::getData('employeeSelect');
 $constants = explode(',', GlobalCrud::getConstants("todoConstants"));
+date_default_timezone_set("Asia/Kolkata");
 if ( !empty($_POST)) {
 
 	// keep track post values
@@ -32,13 +33,16 @@ if ( !empty($_POST)) {
 	}
  */
 
-
+	$toEmail = $_POST['employeeEmail'];
+	$subject = "Regarding Newly Task";
+	$body = "Hi Kiran,\n New Task is Created to You,Please complete it by ".$estimatedtime;
 
 	// insert data
 	if ($valid) {
 		$sql = "todoInsert";
 		$sqlValues = array($category,$status,$assignedto,$estimatedtime,$createdDate,$description);
 		GlobalCrud::setData($sql,$sqlValues);
+		GlobalCrud::sendEmail($toEmail,$subject,$body);
 		header("Location:../?content=19");
 	}
 	else{
@@ -122,7 +126,7 @@ function validate(){
 					<div class="form-group required">
 						<label class="control-label">Employee Name</label>
 						<div class="controls">
-							<select name="assignedto" id="assignedtoid">
+							<select name="assignedto" id="assignedtoid" onchange="getTheEmail('employee')">
 								<option value="">Select</option>
 								<?php foreach ($data as $row): ?>
 								<option value="<?=$row['id']?>">
@@ -150,7 +154,7 @@ function validate(){
 					<div class="controls">
 						<textarea name="description" type="text" placeholder="description"
 							value="<?php echo !empty($description)?$description:'';?>"></textarea>
-
+					<input type="hidden" name="employeeEmail" id="employeeEmail" />
 					</div>
 				</div>
 

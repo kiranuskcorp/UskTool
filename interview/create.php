@@ -8,7 +8,7 @@ $employeeData = GlobalCrud::getData('employeeSelect');
 $clientData = GlobalCrud::getData('clientSelect');
 $timeConstants = explode(',', GlobalCrud::getConstants("timeConstants"));
 $interviewconstants = explode(',', GlobalCrud::getConstants("interviewconstants"));
-
+date_default_timezone_set("Asia/Kolkata");
 if ( !empty($_POST)) {
 
 	// keep track post values
@@ -181,11 +181,11 @@ function validate(){
 					</div>
 				</div>
 
-
+			<?php $role = $_SESSION ['role'];?>
 				<div class="control-group ">
 					<label class="control-label">Status</label>
 					<div class="controls">
-						<select name="status" type="text">
+						<select name="status" id="selectInInterview" onchange="checkTheUserStatus('<?php echo $role?>','selectInInterview','interviewCreate')">
 							<option value="">Select</option>
 							<?php foreach ($interviewconstants as $interviewconstant): ?>
 							<option value="<?=$interviewconstant?>">
@@ -193,6 +193,7 @@ function validate(){
 								<?php endforeach ?>
 							</option>
 						</select>
+						<span id="userBasedAllowedAndNotAllowed" style="display: none;color:red;">This seleted value is not allowed for this login user</span>
 					</div>
 				</div>
 
@@ -219,8 +220,8 @@ function validate(){
 
 
 				<div class="form-actions">
-					<button type="submit" class="btn btn-success">Create</button>
-					<a class="btn" href="index.php">Back</a>
+					<button type="submit" class="btn btn-success" id="interviewCreate">Create</button>
+					<!-- <a class="btn" href="index.php">Back</a> -->
 				</div>
 			</form>
 		</div>

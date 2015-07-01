@@ -8,11 +8,10 @@
 </head>
 <body>
 	<div class="container-fluid">
-		<div class="row">
-			<h3>Trainer</h3>
-		</div>
+		
 		<div class="row">
 			<p>
+			<b class="labelData">Trainer</b>
 				<a href="?content=5" class="btn btn-default"> <i
 					class="fa fa-plus-square"></i>&nbsp;Add
 				</a> <a href="./Excels/trainerexcel.php"
@@ -39,7 +38,16 @@
 					$path = $_SERVER ['DOCUMENT_ROOT'];
 					$path .= "/layout/connection/GlobalCrud.php";
 					include_once ($path);
-					$data = GlobalCrud::getData ( 'trainerSelect' );
+                                        $data = null;
+					if (isset($_GET['technology'])) {
+						$data = GlobalCrud::getAllRecordsBasedOnId('trainerSelectByTechnologyId',array($_GET['technology']));
+					}else{
+							
+						$data = GlobalCrud::getData('trainerSelect');
+					}
+					
+					$count = 0;
+
 					foreach ( $data as $row ) {
 						$emailTd = '<td></td>';
 						if(!empty($row['email'])){
@@ -62,22 +70,16 @@
 						echo '<td nowrap="nowrap">';
 						echo '<a href="#" data-toggle="tooltip" title="'. $row['description'] . '"> <i class="fa fa-caret-square-o-up"></i></a>';
 						echo '<a href="?content=6&id=' . $row ['id'] . '"> <i class="fa fa-pencil-square"></i></a>';
-						echo '<a href="?content=4&id=' . $row ['id'] . '"  onclick="return confirm(\'Are you sure you want to delete?\')" > <i class="fa fa-trash"></i></a>'; // '?content=16&id='.$row['id'].'
+						echo '<a href="#"  onClick=delFromHome('.$row['id'].',"traineeDelete") > <i class="fa fa-trash"></i></a>'; // '?content=16&id='.$row['id'].'
 						echo '</td>';
 						echo '</tr>';
-
+					$count++;
 					}
-					function deleteRecord($idValue) {
-																	$sql = "trainerDelete";
-																	$sqlValues = $idValue;
-																	GlobalCrud::delete ( $sql, $sqlValues );
-																	header ( "Location:./?content=4" );
-																}
-
-																if (isset ( $_GET ['id'] )) {
-																	deleteRecord ( $_GET ['id'] );
-																}
-																?>
+					
+					?>
+					<br>
+					Total Number Of Trainers:
+					<?php echo $count;?>											
 				</tbody>
 			</table>
 			<label id="NoRowsAvailable" style="display: none"> No result matched

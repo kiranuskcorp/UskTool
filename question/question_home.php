@@ -4,11 +4,10 @@
 
 <body>
 	<div class="container-fluid">
-		<div class="row">
-			<h3>Question</h3>
-		</div>
+		
 		<div class="row">
 			<p>
+			<b class="labelData">Question</b>
 				<a href="?content=35" class="btn btn-default"><i
 					class="fa fa-plus-square"></i>&nbsp;Add</a> 
 					<a href="./Excels/questionexcel.php" class="btn btn-default btn-lg "

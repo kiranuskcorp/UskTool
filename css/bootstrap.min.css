@@ -85,8 +85,9 @@ sub {
 }
 
 img {
-	width: auto\9;
-	height: auto;
+	width: 180px;
+	height: 90px;
+	overflow:none;
 	max-width: 100%;
 	vertical-align: middle;
 	border: 0;
@@ -4223,9 +4224,9 @@ button.btn.btn-mini, input[type="submit"].btn.btn-mini {
 .navbar .nav>li>a {
 	float: none;
 	padding: 10px 15px 10px;
-	color: #777;
+	color: #FAF9F9;
 	text-decoration: none;
-	text-shadow: 0 1px 0 #fff
+	/* text-shadow: 0 1px 0 #fff */
 }
 
 .navbar .nav .dropdown-toggle .caret {

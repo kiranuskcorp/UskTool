@@ -4,6 +4,7 @@ $path = $_SERVER['DOCUMENT_ROOT'];
 $path .= "/layout/connection/GlobalCrud.php";
 include_once($path);
 $technologyData = GlobalCrud::getData('technologySelect');
+date_default_timezone_set("Asia/Kolkata");
 if ( !empty($_POST)) {
 
 	// keep track post values
@@ -131,8 +132,8 @@ function validate(){
 					<div class="form-group required">
 						<label class="control-label">Phone</label>
 						<div class="controls">
-								<input type="tel" name="phone" maxlength="10" placeholder="phone" 
-								onkeypress='return event.charCode >= 48 && event.charCode <= 57' 
+								<input type="tel" name="phone" maxlength="15" placeholder="phone" 
+								onkeypress='return event.charCode >= 48 && event.charCode <= 57 || event.charCode == 43 || event.charCode == 45' 
 								value="<?php echo !empty($phone)?$phone:'';?>" required>
 						</div>
 					</div>

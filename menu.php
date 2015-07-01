@@ -1,13 +1,15 @@
+<li><a href="?content=43"><i class="fa fa-home"></i></a></li>
 
-<li><a href="?content=37">Trainee</a></li>
-<li><a href="?content=4">Trainer</a></li>
-<li><a href="?content=7">Client</a></li>
-<li><a href="?content=1">Technology</a></li>
-<li><a href="?content=40">Support</a></li>
-<li><a href="?content=22">Interview</a></li>
-<li><a href="?content=10">Batch</a></li>
-<li><a href="?content=13">Employee</a></li>
-<li><a href="?content=25">Course</a></li>
-<li><a href="?content=19">Tasks</a></li>
-<li><a href="?content=34">Question</a></li>
+<li><a href="?content=37"><b>Trainee</b></a></li>
+<li><a href="?content=4"><b>Trainer</b></a></li>
+<li><a href="?content=7"><b>Client</b></a></li>
+<li><a href="?content=1"><b>Technology</b></a></li>
+<li><a href="?content=40"><b>Support</b></a></li>
+<li><a href="?content=22"><b>Interview</b></a></li>
+<li><a href="?content=10"><b>Batch</b></a></li>
+<li><a href="?content=13"><b>Employee</b></a></li>
+<li><a href="?content=25"><b>Course</b></a></li>
+<li><a href="?content=19"><b>Tasks</b></a></li>
+<li><a href="?content=34"><b>Question</b></a></li>
+<li><a href="?content=50"><b>Reporting</b></a></li>
 

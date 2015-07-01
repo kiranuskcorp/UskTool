@@ -3,8 +3,9 @@
 $path = $_SERVER['DOCUMENT_ROOT'];
 $path .= "/layout/connection/GlobalCrud.php";
 include_once($path);
-
+date_default_timezone_set("Asia/Kolkata");
 $data = GlobalCrud::getData('technologySelect');
+
 if ( !empty($_POST)) {
 
 	// keep track post values

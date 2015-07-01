@@ -1,4 +1,3 @@
 eclipse.preferences.version=1
-include_path=0;/Dmt_Tool\u00050;/Dmt_Tool/css\u00050;/Dmt_Tool/js\u00050;/Dmt_Tool/question\u00050;/Dmt_Tool/todo\u00050;/Dmt_Tool/technology\u00050;/Dmt_Tool/course\u00050;/Dmt_Tool/trainer\u00050;/Dmt_Tool/client\u00050;/Dmt_Tool/img\u00050;/Dmt_Tool/batch\u00050;/Dmt_Tool/connection\u00050;/Dmt_Tool/.settings\u00050;/Dmt_Tool/employee\u00050;/Dmt_Tool/support\u00050;/Dmt_Tool/interview\u00050;/Dmt_Tool/recording\u00050;/Dmt_Tool/trainee\u00050;/Dmt_Tool/payslip\u00050;/Dmt_Tool/resume
-phpVersion=php5.4
-use_asp_tags_as_php=false
+phpVersion=php5.5
+useShortTags=true

@@ -8,6 +8,7 @@ $employeeData = GlobalCrud::getData('employeeSelect');
 $timeConstants = explode(',', GlobalCrud::getConstants("timeConstants"));
 $supportConstants = explode(',', GlobalCrud::getConstants("supportConstants"));
 $id = null;
+date_default_timezone_set("Asia/Kolkata");
 if ( !empty($_GET['id'])) {
 	$id = $_REQUEST['id'];
 }

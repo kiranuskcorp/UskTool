@@ -4,6 +4,7 @@
    	 $path .= "/layout/connection/GlobalCrud.php";
    	 include_once($path);
    	 $dataClient = GlobalCrud::getData ( 'clientSelect' );
+   	 date_default_timezone_set("Asia/Kolkata");
 	if ( !empty($_POST)) {
 		
 		// keep track post values
@@ -105,7 +106,9 @@
 					   <div class="control-group">
 					    <label class="control-label">Phone</label>
 					    <div class="controls">*
-					      	<input name="phone" type="tel"  maxlength="10" placeholder="Phone" value="<?php echo !empty($phone)?$phone:'';?>" required>
+					      	<input name="phone" type="tel"  maxlength="15" placeholder="Phone" 
+					      	onkeypress='return event.charCode >= 48 && event.charCode <= 57 || event.charCode == 43 || event.charCode == 45' 
+					      	value="<?php echo !empty($phone)?$phone:'';?>" required>
 					    
 					    </div>
 					  </div>

@@ -28,6 +28,9 @@
     var p = this;
     p.name = 'Footable Filter';
     p.init = function(ft) {
+    	
+    	
+    	
       if (ft.options.filter.enabled == true) {
         ft.timers.register('filter');
         $(ft.table).bind({
@@ -42,14 +45,32 @@
               e.ft.timers.filter.stop();
               e.ft.timers.filter.start(function() {
                 var val = $(data.input).val() || '';
+               
                 if (val.length < data.minimum) {
+                	$("#mainCount").css("display", "block");
+                	$("#mainCountDup").css("display", "none");
                   $table.find("> tbody > tr:not(.footable-row-detail)").each(function() {
-                    p.showRow(this, e.ft);
+                	/*  var supportHidden = $("#supportHidden").val();
+                    	var statusData = null;
+                    	if(supportHidden == '1'){
+                    		statusData =  $(this).find("td").eq(8).html();
+                    	}else{
+                    		statusData =  $(this).find("td").eq(7).html();
+                    	}
+                  	
+                    	var lastFive = statusData.substr(statusData.length - 6);
+                    	var trid = $(this).closest('tr').attr('id');
+                	  
+                     	if(trid != 'hide' && lastFive != 'Closed'){
+                     	 p.showRow(this, e.ft);
+                     	}*/
+                	  p.showRow(this, e.ft);
                   });
                 } else {
                   var filters = val.split(" ");
                   $table.find("> tbody > tr").hide();
                   var rows = $table.find("> tbody > tr:not(.footable-row-detail)");
+                  
                 /*  $.each(filters, function(i, f) {
                     if (f && f.length)
                       rows = rows.filter("*:ftcontains('" + f + "')");
@@ -59,15 +80,60 @@
                         rows = rows.filter("*:ftcontains('" + f + "')");
                        if(rows.length == 0){
                       	 $("#NoRowsAvailable").css("display", "block");
+                      	 $("#mainCount").css("display", "none");
+                      	 $("#mainCountDup").css("display", "block");
+                      	 $("#countDup").html("0");
+                      	 /*if($('#checkboxID').prop("checked") == true){
+                      		 $('.RowToClick').show();
+                        }else{
+                        	 $('.RowToClick').hide();
+                        }*/
                        }
                        else{
+                    	  // console.log("rows.length : "+rows.length);
+                    	   $("#mainCount").css("display", "none");  
+                    	   $("#mainCountDup").css("display", "block");
                       	 $("#NoRowsAvailable").css("display", "none");
+                      	 $("#countDup").html(rows.length);
+                      	
                        }
                       }
                     });
 
                   rows.each(function() {
-                    p.showRow(this, e.ft);
+                	  var supportHidden = $("#supportHidden").val();
+                  	var statusData = null;
+                  	if(supportHidden == '1'){
+                  		statusData =  $(this).find("td").eq(8).html();
+                  	}else{
+                  		statusData =  $(this).find("td").eq(7).html();
+                  	}
+                  	if(statusData == null){
+                		 p.showRow(this, e.ft);
+                	}else{
+                	var lastFive = statusData.substr(statusData.length - 6);
+                	if($("#checkboxID").is(":checked") && (supportHidden == undefined || supportHidden != '1')){
+                		 p.showRow(this, e.ft);
+                		// $("#mainCountcheck").html(document.getElementById("myTable").rows.length);
+                	}else{
+                		if(lastFive != 'Closed' && (supportHidden == undefined || supportHidden != '1')){
+                       	 p.showRow(this, e.ft);
+                       	// $("#mainCountcheck").html(parseInt(document.getElementById("myTable").rows.length)-parseInt($("#mainCountcheck2").html())-parseInt(1));
+                       	}else{
+                       	 var trid = $(this).closest('tr').attr('id');
+                       	if(trid != 'hide' && lastFive != 'Closed'){
+                       	 p.showRow(this, e.ft);
+                       	}
+                       		
+                       	}
+                	}
+                	
+                	}  
+                	  
+                	/*console.log("checked "+$("#checkboxID").is(":checked"));
+                	if(lastFive != 'Closed'){
+                	 p.showRow(this, e.ft);
+                	}*/
                   });
                 }
               }, data.timeout);
@@ -79,12 +145,16 @@
     
     p.showRow = function(row, ft) {
       var $row = $(row), $next = $row.next(), $table = $(ft.table);
+    //  console.log($next);
       if ($row.is(':visible')) return; //already visible - do nothing
       if ($table.hasClass('breakpoint') && $row.hasClass('footable-detail-show') && $next.hasClass('footable-row-detail')) {
         $row.add($next).show();
         ft.createOrUpdateDetailRow(row);
       }
-      else $row.show();
+      else{
+    		  $row.show();
+    
+      }
     };
   };
   

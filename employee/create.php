@@ -2,6 +2,7 @@
 $path = $_SERVER ['DOCUMENT_ROOT'];
 $path .= "/layout/connection/GlobalCrud.php";
 include_once ($path);
+date_default_timezone_set("Asia/Kolkata");
 $constants = explode ( ',', GlobalCrud::getConstants ( "roleConstants" ) );
 if (! empty ( $_POST )) {
 	
@@ -106,8 +107,8 @@ if (! empty ( $_POST )) {
 					<div class="form-group required">
 						<label class="control-label">Phone</label>
 						<div class="controls">
-								<input type="tel" name="phone" maxlength="10" placeholder="phone" 
-								onkeypress='return event.charCode >= 48 && event.charCode <= 57' 
+								<input type="tel" name="phone" maxlength="10" placeholder="phone"  maxlength="15"
+								onkeypress='return event.charCode >= 48 && event.charCode <= 57 || event.charCode == 43 || event.charCode == 45'
 								value="<?php echo !empty($phone)?$phone:'';?>" required>
 						</div>
 					</div>
